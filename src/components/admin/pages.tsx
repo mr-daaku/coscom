@@ -541,7 +541,10 @@ export function Networks() {
 
 function useCountdown(initial: number) {
   const [left, setLeft] = useState(initial);
-  useMemo(() => left, [left]);
+  useEffect(() => {
+    const t = setInterval(() => setLeft((v) => (v > 0 ? v - 1 : 0)), 1000);
+    return () => clearInterval(t);
+  }, []);
   return [left, setLeft] as const;
 }
 
