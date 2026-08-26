@@ -58,7 +58,7 @@ export function Dashboard({ onCreateInvoice }: { onCreateInvoice: () => void }) 
           </div>
           <div className="flex h-48 items-end gap-3">
             {bars.map((h, i) => (
-              <div key={i} className="flex flex-1 flex-col items-center gap-2">
+              <div key={i} className="flex h-full flex-1 flex-col items-center justify-end gap-2">
                 <div
                   className="w-full rounded-t-md bg-gradient-to-t from-primary/25 to-primary transition-all duration-200"
                   style={{ height: `${h}%` }}
