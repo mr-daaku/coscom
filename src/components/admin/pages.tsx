@@ -618,7 +618,7 @@ export function Analytics() {
                 </div>
                 <ProgressBar
                   value={r.pct}
-                  tone={(["primary", "success", "warning", "info"] as Tone[])[i]}
+                  tone={(["primary", "success", "warning", "info"] as Tone[])[i] ?? "primary"}
                 />
               </div>
             ))}
