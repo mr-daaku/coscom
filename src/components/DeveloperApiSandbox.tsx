@@ -2,70 +2,72 @@ import { useState } from "react";
 import { Copy, Check, Terminal, Code2 } from "lucide-react";
 
 export default function DeveloperApiSandbox() {
-  const [activeTab, setActiveTab] = useState<"curl" | "typescript" | "python" | "react">("typescript");
+  const [activeTab, setActiveTab] = useState<"react" | "typescript" | "curl" | "python">("react");
   const [copied, setCopied] = useState(false);
 
   const snippets = {
-    typescript: `import { CosmosPay } from "@cosmos-pay/sdk";
+    react: `// 1. Embed Drop-in React / Next.js Checkout Component
+import { CosmosPaymentWidget } from "@cosmos-pay/react";
 
-const cosmos = new CosmosPay({
-  apiKey: process.env.COSMOS_PAY_SECRET_KEY,
-  environment: "mainnet",
-});
-
-// 1. Create a dynamic crypto checkout session
-const invoice = await cosmos.invoices.create({
-  amount: 250.00,
-  currency: "USD",
-  acceptedTokens: ["USDT", "BTC", "ETH", "SOL", "TON"],
-  redirectUrl: "https://yourstore.com/order/1092/success",
-  webhookUrl: "https://api.yourstore.com/webhooks/cosmos",
-  metadata: { orderId: "ORD-1092", customerId: "usr_9981" },
-});
-
-console.log("Pay URL:", invoice.checkoutUrl);`,
-
-    curl: `curl -X POST https://api.cosmospay.io/v1/invoices \\
-  -H "Authorization: Bearer sk_live_9a8f2e7b1c4d" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "amount": 250.00,
-    "currency": "USD",
-    "acceptedTokens": ["USDT", "BTC", "ETH", "SOL"],
-    "webhookUrl": "https://api.yourstore.com/webhooks/cosmos",
-    "metadata": { "orderId": "ORD-1092" }
-  }'`,
-
-    python: `from cosmospay import CosmosPay
-
-client = CosmosPay(api_key="sk_live_9a8f2e7b1c4d")
-
-# Generate crypto payment invoice
-invoice = client.invoices.create(
-    amount=250.00,
-    currency="USD",
-    accepted_tokens=["USDT", "BTC", "ETH", "SOL", "TON"],
-    webhook_url="https://api.yourstore.com/webhooks/cosmos",
-    metadata={"order_id": "ORD-1092"}
-)
-
-print(f"Checkout URL: {invoice.checkout_url}")`,
-
-    react: `import { useCosmosCheckout } from "@cosmos-pay/react";
-
-export function PayButton({ orderTotal }: { orderTotal: number }) {
-  const { createCheckout, isPending } = useCosmosCheckout();
-
+export function CheckoutModal({ orderId, totalUSD }: { orderId: string; totalUSD: number }) {
   return (
-    <button
-      onClick={() => createCheckout({ amount: orderTotal, currency: "USD" })}
-      disabled={isPending}
-      className="btn-primary"
-    >
-      {isPending ? "Connecting Wallet..." : "Pay with Crypto"}
-    </button>
+    <CosmosPaymentWidget
+      endpoint="https://pay.yourdomain.com" // Your Self-Hosted Gateway
+      amountUSD={totalUSD}
+      orderId={orderId}
+      acceptedTokens={["USDT", "USDC", "BTC", "ETH", "SOL", "TON"]}
+      onSuccess={(txHash) => console.log("Paid on-chain:", txHash)}
+      theme="dark"
+    />
   );
 }`,
+
+    typescript: `// 2. Node.js / TypeScript Server SDK
+import { CosmosGateway } from "@cosmos-pay/sdk";
+
+const cosmos = new CosmosGateway({
+  endpoint: "https://pay.yourdomain.com", // Your Self-Hosted Instance
+  adminSecret: process.env.COSMOS_ADMIN_SECRET,
+});
+
+// Create a dynamic multi-chain crypto invoice
+const invoice = await cosmos.invoices.create({
+  amountUSD: 99.00,
+  acceptedChains: ["solana", "tron", "bsc", "ethereum", "ton"],
+  metadata: { orderId: "ORD-9912", userId: "usr_401" },
+  webhookUrl: "https://api.yourdomain.com/webhooks/cosmos",
+});
+
+console.log("Deposit Address:", invoice.payAddress);`,
+
+    curl: `# 3. Standard REST API Call to Your Gateway
+curl -X POST https://pay.yourdomain.com/api/v1/invoices \\
+  -H "Authorization: Bearer YOUR_ADMIN_SECRET" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "amountUSD": 99.00,
+    "acceptedTokens": ["USDT", "BTC", "ETH", "SOL"],
+    "webhookUrl": "https://api.yourdomain.com/webhooks/cosmos",
+    "metadata": { "orderId": "ORD-9912" }
+  }'`,
+
+    python: `# 4. Python / Django / FastAPI SDK
+from cosmospay import CosmosGateway
+
+client = CosmosGateway(
+    endpoint="https://pay.yourdomain.com",
+    admin_secret=os.getenv("COSMOS_ADMIN_SECRET")
+)
+
+# Generate payment session
+invoice = client.invoices.create(
+    amount_usd=99.00,
+    accepted_tokens=["USDT", "BTC", "ETH", "SOL", "TON"],
+    webhook_url="https://api.yourdomain.com/webhooks/cosmos",
+    metadata={"order_id": "ORD-9912"}
+)
+
+print(f"Pay URI: {invoice.checkout_url}")`,
   };
 
   const handleCopy = () => {
@@ -75,7 +77,7 @@ export function PayButton({ orderTotal }: { orderTotal: number }) {
   };
 
   return (
-    <div className="relative mx-auto max-w-5xl overflow-hidden rounded-3xl border border-primary/25 bg-[#090814] shadow-2xl">
+    <div className="relative mx-auto max-w-5xl overflow-hidden rounded-3xl border border-white/[0.08] bg-[#090814] shadow-2xl">
       {/* Header bar */}
       <div className="flex flex-wrap items-center justify-between border-b border-border/50 bg-[#121020]/90 px-6 py-4">
         <div className="flex items-center gap-3">
@@ -86,13 +88,13 @@ export function PayButton({ orderTotal }: { orderTotal: number }) {
           </div>
           <div className="flex items-center gap-1.5 text-xs font-mono text-muted-foreground">
             <Terminal className="size-3.5 text-primary" />
-            <span>developer-quickstart.{activeTab === "curl" ? "sh" : activeTab === "python" ? "py" : activeTab === "react" ? "tsx" : "ts"}</span>
+            <span>embed-gateway.{activeTab === "curl" ? "sh" : activeTab === "python" ? "py" : activeTab === "react" ? "tsx" : "ts"}</span>
           </div>
         </div>
 
         {/* Tab switcher */}
         <div className="flex items-center gap-1 rounded-xl bg-black/40 p-1 border border-border/40">
-          {(["typescript", "curl", "python", "react"] as const).map((tab) => (
+          {(["react", "typescript", "curl", "python"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -102,13 +104,13 @@ export function PayButton({ orderTotal }: { orderTotal: number }) {
                   : "text-muted-foreground hover:text-white"
               }`}
             >
-              {tab === "typescript"
-                ? "TypeScript"
+              {tab === "react"
+                ? "React Widget"
+                : tab === "typescript"
+                ? "TypeScript SDK"
                 : tab === "curl"
                 ? "cURL"
-                : tab === "python"
-                ? "Python"
-                : "React Hook"}
+                : "Python"}
             </button>
           ))}
         </div>
@@ -132,7 +134,7 @@ export function PayButton({ orderTotal }: { orderTotal: number }) {
       </div>
 
       {/* Code Area */}
-      <div className="relative overflow-x-auto p-6 text-xs sm:text-sm font-mono leading-relaxed bg-[#060511]">
+      <div className="relative overflow-x-auto p-6 text-xs sm:text-sm font-mono leading-relaxed bg-[#05040f]">
         <pre className="text-foreground/90 font-mono">
           <code>{snippets[activeTab]}</code>
         </pre>
@@ -141,15 +143,12 @@ export function PayButton({ orderTotal }: { orderTotal: number }) {
       {/* Footer Info */}
       <div className="flex flex-wrap items-center justify-between border-t border-border/40 bg-[#0d0c1d] px-6 py-3.5 text-xs text-muted-foreground">
         <div className="flex items-center gap-2">
-          <Code2 className="size-4 text-info" />
-          <span>Webhook signature verification with HMAC SHA-256</span>
+          <Code2 className="size-4 text-cyan-400" />
+          <span>Compatible with Next.js, Remix, Vite, React Native, Node.js & Python</span>
         </div>
-        <a
-          href="/admin"
-          className="text-primary hover:underline font-semibold"
-        >
-          Explore Full API Documentation &rarr;
-        </a>
+        <span className="font-mono text-emerald-400 text-xs">
+          Direct to your private RPCs
+        </span>
       </div>
     </div>
   );

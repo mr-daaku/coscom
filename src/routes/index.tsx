@@ -1,805 +1,574 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
-import ScrollReveal from "../components/ScrollReveal";
-import ScrollProgressBar from "../components/ScrollProgressBar";
-import Navbar from "../components/Navbar";
-import AuroraBackground from "../components/AuroraBackground";
-import InteractivePaymentDemo from "../components/InteractivePaymentDemo";
-import SpotlightCard from "../components/SpotlightCard";
-import ComparisonMatrix from "../components/ComparisonMatrix";
-import DeveloperApiSandbox from "../components/DeveloperApiSandbox";
+import { useEffect } from "react";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import CheckoutDemo from "../components/CheckoutDemo";
+import SpotlightBackground from "../components/SpotlightBackground";
 import {
-  ShieldCheck,
+  ChevronRight,
+  CheckCircle2,
   Zap,
   Globe2,
-  Lock,
+  ShieldCheck,
   ArrowRight,
-  ChevronDown,
   Layers,
   Code,
-  Sparkles,
-  CheckCircle2,
-  DollarSign,
-  TrendingUp,
-  Cpu,
-  Coins,
-  Receipt,
+  Server,
   ExternalLink,
+  Github,
+  Sparkles,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "CosMos Pay — The Next-Gen Multi-Chain Crypto Payment Gateway" },
+      { title: "CosMonPay — The Gateway to Crypto Commerce" },
       {
         name: "description",
         content:
-          "CosMos Pay is an ultra-fast, non-custodial multi-chain crypto payment gateway supporting USDT, USDC, BTC, ETH, SOL, TON, and BNB with instant settlement and 0% merchant fees.",
+          "Accept Bitcoin, Ethereum, stablecoins and 50+ tokens with one integration. Settle in USD, EUR or keep crypto. Zero chargebacks. 0.4% flat fee.",
       },
-      { property: "og:title", content: "CosMos Pay — Multi-Chain Crypto Payment Gateway" },
+      { property: "og:title", content: "CosMonPay — The Gateway to Crypto Commerce" },
       {
         property: "og:description",
         content:
-          "Accept crypto payments across 7+ networks with sub-second settlement, non-custodial wallet routing, and real-time on-chain analytics.",
+          "Accept Bitcoin, Ethereum, stablecoins and 50+ tokens with one integration. Settle in USD, EUR or keep crypto. Zero chargebacks. 0.4% flat fee.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@300;400;500;600;700&display=swap" },
     ],
   }),
   component: LandingPage,
 });
 
-const tokens = [
-  { symbol: "USDT", name: "Tether USD", price: "$1.00", change: "+0.01%", img: "/assets/usdt.png" },
-  { symbol: "USDC", name: "USD Coin", price: "$1.00", change: "0.00%", img: "/assets/usdc.png" },
-  { symbol: "BTC", name: "Bitcoin", price: "$96,540", change: "+3.42%", img: "/assets/btc.png" },
-  { symbol: "ETH", name: "Ethereum", price: "$3,450", change: "+2.15%", img: "/assets/eth.png" },
-  { symbol: "SOL", name: "Solana", price: "$214.80", change: "+5.68%", img: "/assets/sol.png" },
-  { symbol: "BNB", name: "BNB Chain", price: "$645.20", change: "+1.20%", img: "/assets/bnb.png" },
-  { symbol: "TON", name: "Toncoin", price: "$6.85", change: "+4.10%", img: "/assets/ton.png" },
-  { symbol: "POL", name: "Polygon", price: "$0.58", change: "+1.85%", img: "/assets/pol.png" },
-  { symbol: "BASE", name: "Base L2", price: "L2 Protocol", change: "+8.90%", img: "/assets/base.png" },
-];
-
-const networks = [
-  {
-    name: "Solana",
-    tps: "65,000 TPS",
-    avgFee: "$0.00025",
-    blockTime: "400ms",
-    status: "Operational",
-    color: "#9945FF",
-    icon: "/assets/sol.png",
-  },
-  {
-    name: "TRON (TRC-20)",
-    tps: "2,000 TPS",
-    avgFee: "$0.80",
-    blockTime: "3s",
-    status: "Operational",
-    color: "#FF0013",
-    icon: "/assets/pol.png",
-  },
-  {
-    name: "BNB Smart Chain",
-    tps: "2,200 TPS",
-    avgFee: "$0.04",
-    blockTime: "3s",
-    status: "Operational",
-    color: "#F0B90B",
-    icon: "/assets/bnb.png",
-  },
-  {
-    name: "Ethereum",
-    tps: "30+ TPS",
-    avgFee: "Dynamic Gas",
-    blockTime: "12s",
-    status: "Operational",
-    color: "#627EEA",
-    icon: "/assets/eth.png",
-  },
-  {
-    name: "Polygon PoS",
-    tps: "7,000 TPS",
-    avgFee: "$0.005",
-    blockTime: "2s",
-    status: "Operational",
-    color: "#8247E5",
-    icon: "/assets/pol.png",
-  },
-  {
-    name: "TON Blockchain",
-    tps: "100,000+ TPS",
-    avgFee: "$0.002",
-    blockTime: "5s",
-    status: "Operational",
-    color: "#0098EA",
-    icon: "/assets/ton.png",
-  },
-  {
-    name: "Bitcoin Core",
-    tps: "7 TPS",
-    avgFee: "On-Chain Fee",
-    blockTime: "10m",
-    status: "Operational",
-    color: "#F7931A",
-    icon: "/assets/btc.png",
-  },
-  {
-    name: "Base Network",
-    tps: "4,000 TPS",
-    avgFee: "$0.001",
-    blockTime: "2s",
-    status: "Operational",
-    color: "#0052FF",
-    icon: "/assets/base.png",
-  },
-];
-
-const faqs = [
-  {
-    q: "How do non-custodial payments work with CosMos Pay?",
-    a: "Unlike custodial processors like BitPay or Stripe where funds are held in third-party bank accounts, CosMos Pay generates dynamic on-chain deposit addresses linked straight to your merchant wallet. Payments go directly from the payer to your private keys.",
-  },
-  {
-    q: "What fees does CosMos Pay charge merchants?",
-    a: "Zero percent (0.0%). We charge no merchant transaction fees, no setup fees, and no monthly subscriptions. The network gas fee is covered by the customer during transaction broadcast.",
-  },
-  {
-    q: "How fast are payments confirmed?",
-    a: "On networks like Solana, BSC, TRON, and Polygon, transactions are confirmed and finalized within 400ms to 3 seconds. Instant webhooks notify your backend immediately.",
-  },
-  {
-    q: "Can I integrate CosMos Pay with my existing e-commerce or custom stack?",
-    a: "Yes! We offer a full REST API, Webhooks with HMAC SHA-256 signatures, TypeScript / Node.js SDK, Python SDK, and React drop-in components. Integration takes less than 15 minutes.",
-  },
-];
-
 function LandingPage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  useEffect(() => {
+    // IntersectionObserver-based scroll reveal animations
+    if (typeof window !== "undefined" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("revealed");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          rootMargin: "0px 0px -10% 0px",
+          threshold: 0.1,
+        }
+      );
+
+      document.querySelectorAll("[data-reveal]").forEach((el) => {
+        observer.observe(el);
+      });
+
+      return () => observer.disconnect();
+    }
+  }, []);
+
+  const features = [
+    {
+      icon: (
+        <svg className="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+        </svg>
+      ),
+      title: "Instant settlement, no chargebacks",
+      description: "Funds land in your wallet the moment a transaction confirms. Crypto is push, not pull — chargebacks become a thing of the past.",
+      stats: [
+        { value: "~10s", label: "BTC confirm" },
+        { value: "~15s", label: "ETH confirm" },
+        { value: "0%", label: "chargeback rate" },
+      ],
+      large: true,
+    },
+    {
+      icon: (
+        <svg className="w-7 h-7 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M12 2v20M5 9l7-7 7 7" />
+        </svg>
+      ),
+      title: "One-line integration",
+      description: "Drop in our SDK or hosted checkout. Live in under 10 minutes.",
+    },
+    {
+      icon: (
+        <svg className="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+        </svg>
+      ),
+      title: "50+ chains, 1 API",
+      description: "BTC, ETH, SOL, all EVM & non-EVM L1s — one integration.",
+    },
+    {
+      icon: (
+        <svg className="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+        </svg>
+      ),
+      title: "Settle how you want",
+      description: "Hold crypto, auto-convert to USD/EUR, or split — your treasury, your rules.",
+      large: true,
+      wide: true,
+    },
+    {
+      icon: (
+        <svg className="w-7 h-7 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>
+      ),
+      title: "Non-custodial",
+      description: "Funds go directly to your wallet. We never hold your money.",
+    },
+  ];
+
+  const trustedBy = [
+    { name: "Binance", serif: true },
+    { name: "Stripe", serif: false },
+    { name: "Coinbase", serif: true },
+    { name: "Shopify", serif: false },
+    { name: "WooCommerce", serif: true },
+    { name: "Webflow", serif: false },
+  ];
+
+  const faqs = [
+    {
+      q: "Do I need to hold crypto?",
+      a: "No. Auto-convert to USD or EUR at the moment of payment, or keep crypto — your choice, per coin.",
+    },
+    {
+      q: "How fast do funds settle?",
+      a: "Once the network confirms the transaction (10s for BTC, ~15s for ETH, near-instant on Solana), funds are in your wallet or fiat account.",
+    },
+    {
+      q: "Is it non-custodial?",
+      a: "Yes. Funds flow directly from buyer to merchant. CosMonPay never holds your money.",
+    },
+    {
+      q: "What about chargebacks?",
+      a: "Crypto transactions are final by design. No chargebacks — which is why merchants save 3-5% vs cards.",
+    },
+    {
+      q: "Do my customers need an account?",
+      a: "No. They scan a QR code or tap a deep link with their existing wallet — MetaMask, Phantom, Coinbase Wallet, etc.",
+    },
+  ];
+
+  const checkoutFeatures = [
+    "No account required for buyers",
+    "Auto-refreshed exchange rates",
+    "Mobile-first, wallet-native",
+    "Built-in QR code + deep links",
+  ];
+
+  const devFeatures = [
+    "Node · Python · Go · PHP",
+    "Webhooks + idempotency",
+    "Sandbox env per project",
+    "OpenAPI spec",
+  ];
+
+  const pricing = [
+    {
+      name: "Starter",
+      price: "0.5%",
+      period: "per transaction",
+      features: ["Up to $50K / month", "50+ cryptocurrencies", "Hosted checkout", "Email support"],
+      cta: "Start free",
+      popular: false,
+    },
+    {
+      name: "Growth",
+      price: "0.4%",
+      period: "per transaction",
+      features: ["Up to $500K / month", "Auto-convert to fiat", "Custom branding", "Priority support", "Sandbox env"],
+      cta: "Start free",
+      popular: true,
+    },
+    {
+      name: "Enterprise",
+      price: "Custom",
+      period: "volume pricing",
+      features: ["Unlimited volume", "Dedicated account mgr", "SLA + 99.99% uptime", "White-label option", "On-prem deployment"],
+      cta: "Talk to sales",
+      popular: false,
+    },
+  ];
 
   return (
-    <main className="relative min-h-screen bg-[#060813] text-foreground selection:bg-primary/40 selection:text-white">
-      <ScrollProgressBar />
-      <Navbar />
+    <main className="min-h-screen bg-background text-foreground relative">
+      <SpotlightBackground />
+      <Header />
 
-      {/* ══════════════════════════════════════════════════════════════════
-          HERO SECTION (Aurora Background + Glass Cards + Fluid Lighting)
-      ══════════════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex items-center justify-center pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        {/* Soft Fluid Aurora Ambient Lighting */}
-        <AuroraBackground />
-
-        {/* Hero Content Container */}
-        <div className="relative z-10 max-w-6xl mx-auto text-center">
-          {/* Top Live Badge */}
-          <div className="inline-flex items-center gap-2.5 rounded-full border border-primary/40 bg-[#121025]/90 px-4 py-1.5 text-xs font-semibold text-primary backdrop-blur-xl shadow-lg shadow-primary/10 transition-transform hover:scale-105 cursor-default">
-            <span className="relative flex size-2">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-success opacity-80" />
-              <span className="relative inline-flex size-2 rounded-full bg-success" />
-            </span>
-            <span>Next-Gen Multi-Chain Crypto Gateway</span>
-            <span className="text-white/30">•</span>
-            <span className="text-foreground/80 font-medium">Instant Non-Custodial Settlement</span>
-          </div>
-
-          {/* Main Headline */}
-          <h1 className="mt-8 text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.02] text-white">
-            Accept Crypto
-            <span className="block gradient-text mt-2">Without Middlemen</span>
-          </h1>
-
-          {/* Subtitle */}
-          <p className="mx-auto mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground leading-relaxed">
-            The self-hosted, non-custodial payment infrastructure for global merchants.
-            Accept <span className="font-semibold text-white">USDT, USDC, BTC, ETH, SOL, TON</span> across
-            <span className="font-semibold text-white"> 7+ networks</span> with <span className="text-success font-semibold">0% fees</span> and sub-second settlement.
-          </p>
-
-          {/* Interactive Floating Token Badges */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3 max-w-2xl mx-auto">
-            {tokens.map((t, idx) => (
-              <div
-                key={t.symbol}
-                className="group flex items-center gap-2 rounded-2xl border border-border/50 bg-[#110f22]/80 px-3.5 py-2 backdrop-blur-md transition-all duration-300 hover:scale-108 hover:border-primary/60 hover:bg-primary/15 hover:shadow-lg hover:shadow-primary/20 cursor-pointer"
-                style={{ animationDelay: `${idx * 0.08}s` }}
+      {/* HERO */}
+      <section className="relative min-h-[90vh] overflow-hidden flex items-center pt-24 pb-20 z-10">
+        <div className="relative max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center">
+          <div data-reveal>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-card/50 backdrop-blur mb-8">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span className="text-sm text-muted-foreground">Mainnet live · 50+ chains supported</span>
+            </div>
+            <h1 className="text-6xl md:text-8xl font-bold leading-[0.95] tracking-tight mb-6 font-fraunces">
+              The gateway<br />
+              to <span className="text-primary">crypto</span><br />
+              commerce.
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-xl mb-10 leading-relaxed">
+              Accept Bitcoin, Ethereum, stablecoins and 50+ tokens with one integration. Settle in USD, EUR or keep crypto. Zero chargebacks. 0.4% flat fee.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                to="/signup"
+                className="inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground rounded-2xl font-semibold hover:scale-[1.02] transition-transform"
               >
-                <img src={t.img} alt={t.symbol} className="size-5 object-contain transition-transform group-hover:scale-110" />
-                <span className="text-xs font-bold text-white">{t.symbol}</span>
-                <span className="text-[10px] font-mono text-success font-semibold">{t.change}</span>
-              </div>
-            ))}
-          </div>
+                Get started
+                <ChevronRight className="ml-2 w-5 h-5" />
+              </Link>
+              <a
+                href="#features"
+                className="inline-flex items-center justify-center px-8 py-4 border border-border bg-card/40 backdrop-blur rounded-2xl font-semibold hover:bg-card transition-colors"
+              >
+                See features
+              </a>
+            </div>
 
-          {/* Action CTAs */}
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href="#demo"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-2xl bg-gradient-to-r from-primary via-primary/90 to-accent px-8 py-4 text-sm font-extrabold text-white shadow-xl shadow-primary/30 transition-all duration-300 hover:scale-105 hover:shadow-primary/50 active:scale-95 cursor-pointer"
-            >
-              <Sparkles className="size-4" />
-              <span>Try Live Checkout Demo</span>
-              <ArrowRight className="size-4" />
-            </a>
-
-            <Link
-              to="/admin"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-2xl border border-border/70 bg-[#121020]/80 px-7 py-4 text-sm font-bold text-white backdrop-blur-md hover:border-primary/50 hover:bg-primary/15 transition-all duration-200 cursor-pointer"
-            >
-              <Cpu className="size-4 text-primary" />
-              <span>Merchant Admin Portal</span>
-            </Link>
-
-            <Link
-              to="/pay"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-2xl border border-success/40 bg-success/10 px-7 py-4 text-sm font-bold text-success backdrop-blur-md hover:bg-success/20 transition-all duration-200 cursor-pointer"
-            >
-              <Receipt className="size-4" />
-              <span>Live Pay Link</span>
-            </Link>
-          </div>
-
-          {/* Real-Time Live Network Counters */}
-          <div className="mt-16 grid grid-cols-2 gap-4 sm:grid-cols-4 max-w-3xl mx-auto border-t border-border/40 pt-10">
-            {[
-              { label: "Supported Blockchains", value: "7+ Chains", sub: "EVM, Solana, TON" },
-              { label: "Merchant Commission", value: "0.0%", sub: "100% Free Gateway" },
-              { label: "Settlement Speed", value: "< 1s", sub: "Instant On-Chain" },
-              { label: "Custody Architecture", value: "100%", sub: "Non-Custodial" },
-            ].map((stat) => (
-              <div key={stat.label} className="p-3 text-center">
-                <p className="text-2xl sm:text-3xl font-black font-mono text-white tracking-tight">
-                  {stat.value}
-                </p>
-                <p className="text-xs font-semibold text-primary mt-1">{stat.label}</p>
-                <p className="text-[10px] text-muted-foreground mt-0.5">{stat.sub}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Bottom Fade Gradient */}
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#060813] to-transparent" />
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════
-          LIVE MULTI-CHAIN TOKEN TICKER MARQUEE
-      ══════════════════════════════════════════════════════════════════ */}
-      <section className="relative z-10 py-6 border-y border-border/40 bg-[#0a0918]/60 overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#060813] via-transparent to-[#060813] z-10" />
-        <div className="flex animate-marquee" style={{ width: "max-content" }}>
-          {[...tokens, ...tokens, ...tokens].map((coin, i) => (
-            <div
-              key={`${coin.symbol}-${i}`}
-              className="mx-4 flex items-center gap-3 rounded-2xl border border-border/40 bg-[#121025]/70 px-5 py-2.5 backdrop-blur-md transition-all hover:border-primary/40 hover:scale-105 cursor-pointer"
-            >
-              <img src={coin.img} alt={coin.symbol} className="size-6 object-contain" />
+            <div className="flex items-center gap-8 mt-12 pt-8 border-t border-border">
               <div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold text-white">{coin.symbol}</span>
-                  <span className="font-mono text-xs text-foreground/80">{coin.price}</span>
-                </div>
-                <span className="text-[10px] font-mono text-success font-semibold">{coin.change}</span>
+                <div className="text-3xl font-bold font-fraunces">$2.4B</div>
+                <div className="text-sm text-muted-foreground">Processed</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold font-fraunces">12,800+</div>
+                <div className="text-sm text-muted-foreground">Merchants</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold font-fraunces">142</div>
+                <div className="text-sm text-muted-foreground">Countries</div>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════
-          LIVE INTERACTIVE CHECKOUT DEMO
-      ══════════════════════════════════════════════════════════════════ */}
-      <section id="demo" className="relative z-10 py-28 px-4 sm:px-6 lg:px-8">
-        <ScrollReveal direction="scale">
-          <div className="text-center mb-12">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary">
-              <Sparkles className="size-3.5" />
-              Hands-On Simulation
-            </span>
-            <h2 className="mt-3 text-3xl sm:text-5xl font-black text-white tracking-tight">
-              Test The Checkout Engine Live
-            </h2>
-            <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
-              Simulate creating a dynamic payment invoice, broadcasting a transaction, and receiving an instant on-chain settlement receipt.
-            </p>
           </div>
 
-          <InteractivePaymentDemo />
-        </ScrollReveal>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════
-          BENTO GRID FEATURES (21st.dev + UI-UX Pro Max Style)
-      ══════════════════════════════════════════════════════════════════ */}
-      <section id="features" className="relative z-10 py-28 px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
-          <ScrollReveal direction="up">
-            <div className="text-center mb-16">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary">
-                <Layers className="size-3.5" />
-                Cutting-Edge Capabilities
-              </span>
-              <h2 className="mt-3 text-3xl sm:text-5xl font-black text-white tracking-tight">
-                Engineered for <span className="gradient-text">Absolute Freedom</span>
-              </h2>
-              <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
-                Built from the ground up for high-volume merchants, SaaS platforms, and Web3 apps needing friction-free crypto payments.
-              </p>
+          {/* Floating checkout preview */}
+          <div className="relative" data-reveal>
+            <div className="absolute -inset-8 bg-gradient-to-br from-primary/20 to-accent/20 blur-3xl rounded-full" />
+            <div className="relative bg-card border border-border rounded-3xl p-6 backdrop-blur-xl">
+              <div className="flex items-center justify-between mb-6">
+                <div className="text-sm text-muted-foreground font-mono">cosmonpay://checkout</div>
+                <div className="flex gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-destructive" />
+                  <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#e6b335" }} />
+                  <span className="w-2.5 h-2.5 rounded-full bg-primary" />
+                </div>
+              </div>
+              <div className="bg-background/50 rounded-2xl p-6">
+                <div className="flex items-center gap-4 mb-6 pb-6 border-b border-border">
+                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="currentColor">
+                      <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="2" />
+                      <path d="M9 8h4.5a2.5 2.5 0 0 1 0 5H9m0 0v3m0-3v-3m0 3v3" stroke="currentColor" strokeWidth="2" fill="none" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="text-xs text-muted-foreground">Order #CMP-7842</div>
+                    <div className="text-2xl font-bold font-fraunces">$249.00</div>
+                  </div>
+                </div>
+                <div className="text-sm text-muted-foreground mb-3">Select payment coin</div>
+                <div className="grid grid-cols-3 gap-2 mb-4">
+                  <button className="px-3 py-2.5 bg-primary text-primary-foreground rounded-xl text-sm font-semibold">BTC</button>
+                  <button className="px-3 py-2.5 bg-background border border-border rounded-xl text-sm">ETH</button>
+                  <button className="px-3 py-2.5 bg-background border border-border rounded-xl text-sm">USDT</button>
+                  <button className="px-3 py-2.5 bg-background border border-border rounded-xl text-sm">SOL</button>
+                  <button className="px-3 py-2.5 bg-background border border-border rounded-xl text-sm">USDC</button>
+                  <button className="px-3 py-2.5 bg-background border border-border rounded-xl text-sm">+44</button>
+                </div>
+                <div className="bg-background/60 rounded-xl p-4 border border-border">
+                  <div className="flex justify-between text-xs mb-2">
+                    <span className="text-muted-foreground">BTC amount</span>
+                    <span className="font-mono">0.00342</span>
+                  </div>
+                  <div className="flex justify-between text-xs mb-2">
+                    <span className="text-muted-foreground">Network fee</span>
+                    <span className="font-mono">~$0.85</span>
+                  </div>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-muted-foreground">CosMonPay fee</span>
+                    <span className="font-mono text-primary">0.4%</span>
+                  </div>
+                </div>
+                <button className="w-full mt-5 py-3 bg-primary text-primary-foreground rounded-xl font-semibold">Pay now →</button>
+              </div>
             </div>
-          </ScrollReveal>
-
-          {/* Bento Grid Layout */}
-          <div className="grid gap-6 md:grid-cols-12">
-            {/* Feature 1: Non-Custodial */}
-            <ScrollReveal direction="up" className="md:col-span-8">
-              <SpotlightCard className="h-full">
-                <div className="flex flex-col justify-between h-full">
-                  <div>
-                    <div className="flex size-14 items-center justify-center rounded-2xl bg-primary/15 text-primary border border-primary/30 mb-6">
-                      <Lock className="size-7" />
-                    </div>
-                    <span className="text-xs font-bold font-mono text-primary uppercase tracking-wider">
-                      Zero Counterparty Risk
-                    </span>
-                    <h3 className="mt-2 text-2xl sm:text-3xl font-extrabold text-white">
-                      100% Non-Custodial Architecture
-                    </h3>
-                    <p className="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl">
-                      Your keys, your crypto. CosMos Pay routes incoming transactions directly into your private addresses without holding, freezing, or delaying your earnings. No third-party account holds ever.
-                    </p>
-                  </div>
-
-                  <div className="mt-8 grid grid-cols-3 gap-3 border-t border-border/40 pt-6">
-                    <div className="rounded-xl bg-surface/30 p-3 border border-border/30">
-                      <p className="text-xs font-bold text-white">Direct Payouts</p>
-                      <p className="text-[10px] text-muted-foreground mt-0.5">Straight to cold storage</p>
-                    </div>
-                    <div className="rounded-xl bg-surface/30 p-3 border border-border/30">
-                      <p className="text-xs font-bold text-white">0% Holdback</p>
-                      <p className="text-[10px] text-muted-foreground mt-0.5">No rolling reserves</p>
-                    </div>
-                    <div className="rounded-xl bg-surface/30 p-3 border border-border/30">
-                      <p className="text-xs font-bold text-white">Immunity</p>
-                      <p className="text-[10px] text-muted-foreground mt-0.5">Zero account freezing</p>
-                    </div>
-                  </div>
-                </div>
-              </SpotlightCard>
-            </ScrollReveal>
-
-            {/* Feature 2: Sub-Second Settlement */}
-            <ScrollReveal direction="up" delay={150} className="md:col-span-4">
-              <SpotlightCard className="h-full">
-                <div className="flex size-14 items-center justify-center rounded-2xl bg-success/15 text-success border border-success/30 mb-6">
-                  <Zap className="size-7" />
-                </div>
-                <span className="text-xs font-bold font-mono text-success uppercase tracking-wider">
-                  Real-Time On-Chain
-                </span>
-                <h3 className="mt-2 text-xl sm:text-2xl font-extrabold text-white">
-                  Sub-Second Settlement
-                </h3>
-                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                  Real-time mempool scanning and zero-knowledge confirmation listeners detect and verify payments in milliseconds across high-speed chains.
-                </p>
-                <div className="mt-6 rounded-2xl bg-success/10 border border-success/30 p-3 text-center">
-                  <span className="text-2xl font-black font-mono text-success">&lt; 400ms</span>
-                  <span className="text-[11px] text-muted-foreground block">Solana & L2 Finality</span>
-                </div>
-              </SpotlightCard>
-            </ScrollReveal>
-
-            {/* Feature 3: Zero Commission */}
-            <ScrollReveal direction="up" delay={100} className="md:col-span-4">
-              <SpotlightCard className="h-full">
-                <div className="flex size-14 items-center justify-center rounded-2xl bg-warning/15 text-warning border border-warning/30 mb-6">
-                  <DollarSign className="size-7" />
-                </div>
-                <span className="text-xs font-bold font-mono text-warning uppercase tracking-wider">
-                  Transparent Pricing
-                </span>
-                <h3 className="mt-2 text-xl sm:text-2xl font-extrabold text-white">
-                  0% Merchant Processing
-                </h3>
-                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                  Never pay 2.9% + $0.30 to credit card processors or 1% to custodial crypto gateways. 100% of the customer payment reaches your wallet.
-                </p>
-              </SpotlightCard>
-            </ScrollReveal>
-
-            {/* Feature 4: Real-Time Webhooks & Analytics */}
-            <ScrollReveal direction="up" delay={200} className="md:col-span-8">
-              <SpotlightCard className="h-full">
-                <div className="flex flex-col justify-between h-full">
-                  <div>
-                    <div className="flex size-14 items-center justify-center rounded-2xl bg-info/15 text-info border border-info/30 mb-6">
-                      <TrendingUp className="size-7" />
-                    </div>
-                    <span className="text-xs font-bold font-mono text-info uppercase tracking-wider">
-                      Automated Workflows
-                    </span>
-                    <h3 className="mt-2 text-2xl sm:text-3xl font-extrabold text-white">
-                      Instant Webhook Engine & Analytics
-                    </h3>
-                    <p className="mt-3 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl">
-                      Automate order fulfillment with cryptographically signed HMAC webhooks. Track conversion funnels, volume by token, and transaction throughput in your real-time admin dashboard.
-                    </p>
-                  </div>
-
-                  <div className="mt-6 flex flex-wrap gap-2.5">
-                    {["HMAC SHA-256 Signatures", "Auto-Retry Pipeline", "Custom Metadata Payloads", "Discord & Telegram Alerts"].map(
-                      (tag) => (
-                        <span key={tag} className="rounded-lg border border-border/60 bg-surface/30 px-3 py-1 text-xs font-medium text-foreground/80">
-                          {tag}
-                        </span>
-                      )
-                    )}
-                  </div>
-                </div>
-              </SpotlightCard>
-            </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════
-          MULTI-CHAIN ECOSYSTEM EXPLORER
-      ══════════════════════════════════════════════════════════════════ */}
-      <section id="networks" className="relative z-10 py-28 px-4 sm:px-6 lg:px-8 bg-[#080718]/60 border-y border-border/40">
-        <div className="mx-auto max-w-7xl">
-          <ScrollReveal direction="up">
-            <div className="text-center mb-16">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-success/30 bg-success/10 px-3.5 py-1 text-xs font-semibold text-success">
-                <Globe2 className="size-3.5" />
-                Interoperability
+      {/* SUPPORTED COINS / TRUSTED BY */}
+      <section className="py-16 border-y border-border bg-card/30">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 opacity-70">
+            <div className="text-xs uppercase tracking-widest text-muted-foreground mr-4">Trusted worldwide</div>
+            {trustedBy.map((item, i) => (
+              <span key={item.name} className="text-2xl font-bold" style={{ fontFamily: item.serif ? "'Fraunces', serif" : "inherit" }}>
+                {item.name}
               </span>
-              <h2 className="mt-3 text-3xl sm:text-5xl font-black text-white tracking-tight">
-                7+ Blockchains. <span className="gradient-text">One Unified Gateway.</span>
-              </h2>
-              <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
-                No need to manage 7 different wallet nodes or API integrations. CosMos Pay aggregates all major networks seamlessly.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          {/* Networks Grid */}
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {networks.map((net) => (
-              <SpotlightCard key={net.name} className="flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div
-                      className="flex size-12 items-center justify-center rounded-2xl p-2.5"
-                      style={{
-                        background: `${net.color}18`,
-                        border: `1px solid ${net.color}35`,
-                      }}
-                    >
-                      <img src={net.icon} alt={net.name} className="size-full object-contain" />
-                    </div>
-                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-success bg-success/10 px-2.5 py-0.5 rounded-full border border-success/20">
-                      <span className="size-1.5 rounded-full bg-success animate-ping" />
-                      {net.status}
-                    </span>
-                  </div>
-
-                  <h3 className="text-lg font-bold text-white">{net.name}</h3>
-
-                  <div className="mt-4 space-y-2 text-xs">
-                    <div className="flex justify-between text-muted-foreground">
-                      <span>Throughput:</span>
-                      <span className="font-mono font-semibold text-foreground">{net.tps}</span>
-                    </div>
-                    <div className="flex justify-between text-muted-foreground">
-                      <span>Avg Fee:</span>
-                      <span className="font-mono font-semibold text-success">{net.avgFee}</span>
-                    </div>
-                    <div className="flex justify-between text-muted-foreground">
-                      <span>Finality:</span>
-                      <span className="font-mono font-semibold text-info">{net.blockTime}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-6 pt-4 border-t border-border/30 flex items-center justify-between text-[11px] text-muted-foreground">
-                  <span>Zero Merchant Gas</span>
-                  <CheckCircle2 className="size-3.5 text-success" />
-                </div>
-              </SpotlightCard>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════
-          TRANSACTION WORKFLOW PIPELINE (4-Step Animated Journey)
-      ══════════════════════════════════════════════════════════════════ */}
-      <section id="process" className="relative z-10 py-28 px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-5xl">
-          <ScrollReveal direction="up">
-            <div className="text-center mb-20">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary">
-                <Cpu className="size-3.5" />
-                Streamlined Protocol
-              </span>
-              <h2 className="mt-3 text-3xl sm:text-5xl font-black text-white tracking-tight">
-                How It <span className="gradient-text">Works</span>
-              </h2>
-              <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
-                From checkout initiation to final wallet receipt in 4 automated steps.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="relative">
-            {/* Center Laser Connecting Line */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-info to-success hidden md:block -translate-x-1/2 shadow-[0_0_12px_rgba(124,58,237,0.8)]" />
-
-            <div className="space-y-12">
-              {[
-                {
-                  step: "01",
-                  title: "Dynamic Invoice Generation",
-                  desc: "Merchant app or website calls CosMos Pay API. A unique one-time blockchain deposit address is generated with locked real-time exchange rates.",
-                  color: "#8B5CF6",
-                },
-                {
-                  step: "02",
-                  title: "1-Click Customer Payment",
-                  desc: "Customer scans the QR code or connects any Web3 wallet (MetaMask, Phantom, Tonkeeper, Trust Wallet) and signs the transaction.",
-                  color: "#38BDF8",
-                },
-                {
-                  step: "03",
-                  title: "On-Chain Zero-Knowledge Proof",
-                  desc: "CosMos Pay high-throughput nodes capture the mempool broadcast and verify cryptographic block confirmations across the target chain.",
-                  color: "#10B981",
-                },
-                {
-                  step: "04",
-                  title: "Instant Wallet Credit & Webhook",
-                  desc: "100% of the funds are deposited directly to your private cold/hot wallet. Webhooks fire instantly to unlock customer order access.",
-                  color: "#F59E0B",
-                },
-              ].map((item, idx) => (
-                <ScrollReveal key={item.step} direction={idx % 2 === 0 ? "left" : "right"}>
-                  <div className={`flex flex-col md:flex-row items-center gap-8 ${idx % 2 === 1 ? "md:flex-row-reverse" : ""}`}>
-                    <div className="flex-1 w-full text-center md:text-left">
-                      <div className="rounded-3xl border border-border/50 bg-[#0d0c1d]/90 p-8 backdrop-blur-xl hover:border-primary/40 transition-colors shadow-xl">
-                        <div className="flex items-center gap-3 justify-center md:justify-start">
-                          <span
-                            className="flex size-9 items-center justify-center rounded-xl text-xs font-black font-mono text-white"
-                            style={{ background: item.color }}
-                          >
-                            {item.step}
-                          </span>
-                          <h3 className="text-xl font-bold text-white">{item.title}</h3>
-                        </div>
-                        <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-                      </div>
-                    </div>
-
-                    {/* Center glowing node */}
-                    <div className="hidden md:flex size-12 shrink-0 items-center justify-center rounded-full border-2 border-white/20 bg-[#060813] shadow-lg z-10">
-                      <div className="size-4 rounded-full" style={{ background: item.color }} />
-                    </div>
-
-                    <div className="flex-1 hidden md:block" />
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════
-          COMPARISON MATRIX SECTION
-      ══════════════════════════════════════════════════════════════════ */}
-      <section id="compare" className="relative z-10 py-28 px-4 sm:px-6 lg:px-8">
-        <ScrollReveal direction="scale">
-          <ComparisonMatrix />
-        </ScrollReveal>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════
-          DEVELOPER API SANDBOX
-      ══════════════════════════════════════════════════════════════════ */}
-      <section id="developers" className="relative z-10 py-28 px-4 sm:px-6 lg:px-8 bg-[#070617]/70 border-y border-border/40">
-        <ScrollReveal direction="up">
-          <div className="text-center mb-16">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-info/30 bg-info/10 px-3.5 py-1 text-xs font-semibold text-info">
-              <Code className="size-3.5" />
-              Built For Builders
-            </span>
-            <h2 className="mt-3 text-3xl sm:text-5xl font-black text-white tracking-tight">
-              Integrate in <span className="gradient-text">&lt; 15 Minutes</span>
+      {/* FEATURES */}
+      <section id="features" className="py-24 md:py-32">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-3xl mb-16" data-reveal>
+            <div className="text-sm uppercase tracking-widest text-primary mb-4">Why CosMonPay</div>
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05] font-fraunces">
+              Built for the next<br />century of money.
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">
-              Clean SDKs, robust webhooks, and predictable RESTful endpoints designed for high developer productivity.
-            </p>
           </div>
 
-          <DeveloperApiSandbox />
-        </ScrollReveal>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════
-          FAQ ACCORDION SECTION
-      ══════════════════════════════════════════════════════════════════ */}
-      <section id="faq" className="relative z-10 py-28 px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl">
-          <ScrollReveal direction="up">
-            <div className="text-center mb-16">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary">
-                Frequently Asked
-              </span>
-              <h2 className="mt-3 text-3xl sm:text-5xl font-black text-white tracking-tight">
-                Got Questions?
-              </h2>
-            </div>
-          </ScrollReveal>
-
-          <div className="space-y-4">
-            {faqs.map((faq, idx) => {
-              const isOpen = openFaq === idx;
-              return (
-                <div
-                  key={faq.q}
-                  className="rounded-2xl border border-border/50 bg-[#0d0c1d]/80 backdrop-blur-xl overflow-hidden transition-colors hover:border-primary/40"
-                >
-                  <button
-                    onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full flex items-center justify-between p-6 text-left cursor-pointer"
-                  >
-                    <span className="text-base font-bold text-white pr-4">{faq.q}</span>
-                    <ChevronDown
-                      className={`size-5 text-primary shrink-0 transition-transform duration-300 ${
-                        isOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-                  {isOpen && (
-                    <div className="px-6 pb-6 text-sm text-muted-foreground leading-relaxed border-t border-border/30 pt-4">
-                      {faq.a}
-                    </div>
-                  )}
+          <div className="grid md:grid-cols-3 gap-4">
+            {features.map((feature, index) => (
+              <article
+                key={feature.title}
+                className={`p-8 bg-card border border-border rounded-3xl ${feature.large ? "md:col-span-2 md:row-span-2" : ""} ${feature.wide ? "md:col-span-2" : ""}`}
+                data-reveal
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="w-14 h-14 rounded-2xl bg-primary/15 flex items-center justify-center mb-6">
+                  {feature.icon}
                 </div>
-              );
-            })}
+                <h3 className={`${(feature.large || feature.wide) ? "text-3xl" : "text-2xl"} font-bold mb-3 font-fraunces`}>
+                  {feature.title}
+                </h3>
+                <p className={`text-muted-foreground mb-6 ${feature.large ? "text-base" : "text-sm"}`}>
+                  {feature.description}
+                </p>
+                {feature.stats && (
+                  <div className="grid grid-cols-3 gap-4 mt-8">
+                    {feature.stats.map((stat) => (
+                      <div key={stat.label} className="bg-background/40 p-4 rounded-2xl border border-border">
+                        <div className="text-3xl font-bold text-primary font-fraunces">{stat.value}</div>
+                        <div className="text-xs text-muted-foreground">{stat.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {feature.wide && (
+                  <div className="flex items-start gap-6 mt-6">
+                    <div className="w-14 h-14 rounded-2xl bg-primary/15 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-7 h-7 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold font-fraunces mb-2">Flexible settlement</h4>
+                      <p className="text-muted-foreground">Choose per-transaction: keep crypto, auto-convert to fiat, or split across multiple wallets.</p>
+                    </div>
+                  </div>
+                )}
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════
-          HIGH-CONVERSION GLASS CTA BANNER
-      ══════════════════════════════════════════════════════════════════ */}
-      <section className="relative z-10 py-28 px-4 sm:px-6 lg:px-8">
-        <ScrollReveal direction="scale">
-          <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[2.5rem] border border-primary/40 bg-gradient-to-br from-[#15122e] via-[#0d0b20] to-[#080718] p-10 sm:p-16 text-center backdrop-blur-2xl shadow-2xl shadow-primary/20">
-            {/* Inner Glow Orbs */}
-            <div className="pointer-events-none absolute -top-32 -left-32 size-[400px] rounded-full bg-primary/20 blur-[120px]" />
-            <div className="pointer-events-none absolute -bottom-32 -right-32 size-[350px] rounded-full bg-success/15 blur-[100px]" />
-
-            <div className="relative z-10">
-              <div className="inline-flex size-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary via-primary/80 to-accent text-white shadow-xl shadow-primary/30 mb-8">
-                <ShieldCheck className="size-8" />
-              </div>
-
-              <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight">
-                Ready to Upgrade Your
-                <span className="block gradient-text mt-2">Payment Infrastructure?</span>
+      {/* LIVE CHECKOUT DEMO */}
+      <section id="checkout" className="py-24 md:py-32 bg-card/30 border-y border-border">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div data-reveal>
+              <div className="text-sm uppercase tracking-widest text-primary mb-4">Live demo</div>
+              <h2 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05] mb-6 font-fraunces">
+                The checkout<br />your customers<br />will love.
               </h2>
-
-              <p className="mx-auto mt-6 max-w-xl text-base text-muted-foreground leading-relaxed">
-                Join modern businesses collecting crypto payments with zero fees and instant non-custodial settlements.
+              <p className="text-lg text-muted-foreground mb-8 max-w-xl">
+                Drop-in widget. Branded to your store. Auto-converts fiat to crypto at the best live rate. Try it on the right — pick any coin.
               </p>
-
-              <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-                <Link
-                  to="/admin"
-                  className="inline-flex items-center gap-2.5 rounded-2xl bg-gradient-to-r from-primary via-primary/90 to-accent px-10 py-4 text-base font-extrabold text-white shadow-2xl shadow-primary/30 transition-all duration-300 hover:scale-105 hover:shadow-primary/50 active:scale-95 cursor-pointer"
-                >
-                  <span>Launch Merchant Portal</span>
-                  <ArrowRight className="size-5" />
-                </Link>
-
-                <Link
-                  to="/pay"
-                  className="inline-flex items-center gap-2 rounded-2xl border border-primary/40 bg-[#151329]/80 px-8 py-4 text-base font-bold text-white backdrop-blur-md hover:bg-primary/20 transition-all duration-200 cursor-pointer"
-                >
-                  <span>Test Checkout Gateway</span>
-                </Link>
-              </div>
-
-              <div className="mt-10 flex flex-wrap justify-center gap-6 text-xs text-muted-foreground">
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="size-4 text-success" /> Non-Custodial
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="size-4 text-success" /> 0% Transaction Fees
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="size-4 text-success" /> 7+ Chains Live
-                </span>
-              </div>
-            </div>
-          </div>
-        </ScrollReveal>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════
-          FUTURISTIC WEB3 FOOTER
-      ══════════════════════════════════════════════════════════════════ */}
-      <footer className="relative border-t border-border/40 bg-[#04050d] px-4 sm:px-6 lg:px-8 py-16">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
-            {/* Col 1: Brand & Status */}
-            <div className="lg:col-span-2 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="flex size-9 items-center justify-center rounded-xl bg-primary text-white">
-                  <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <circle cx="12" cy="12" r="10" strokeWidth="2" />
-                    <ellipse cx="12" cy="12" rx="4" ry="10" strokeWidth="1.8" />
-                    <line x1="2" y1="12" x2="22" y2="12" strokeWidth="2" />
-                  </svg>
-                </div>
-                <span className="text-xl font-black text-white">CosMos Pay</span>
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">
-                The next-generation, non-custodial crypto payment gateway for global commerce. Instant settlement, multi-chain support, and zero merchant commissions.
-              </p>
-              <div className="flex items-center gap-2 rounded-full border border-success/30 bg-success/10 px-3 py-1 text-xs font-semibold text-success w-max">
-                <span className="size-2 rounded-full bg-success animate-ping" />
-                All Systems Operational (99.99%)
-              </div>
-            </div>
-
-            {/* Col 2: Navigation */}
-            <div>
-              <p className="text-xs uppercase font-bold tracking-wider text-muted-foreground mb-4">Platform</p>
-              <ul className="space-y-2.5 text-sm text-muted-foreground">
-                <li><a href="#features" className="hover:text-white transition-colors cursor-pointer">Features</a></li>
-                <li><a href="#networks" className="hover:text-white transition-colors cursor-pointer">Supported Chains</a></li>
-                <li><a href="#demo" className="hover:text-white transition-colors cursor-pointer">Live Demo</a></li>
-                <li><a href="#process" className="hover:text-white transition-colors cursor-pointer">Workflow</a></li>
-                <li><a href="#compare" className="hover:text-white transition-colors cursor-pointer">Comparison</a></li>
-              </ul>
-            </div>
-
-            {/* Col 3: Portal Links */}
-            <div>
-              <p className="text-xs uppercase font-bold tracking-wider text-muted-foreground mb-4">Portals</p>
-              <ul className="space-y-2.5 text-sm text-muted-foreground">
-                <li><Link to="/pay" className="hover:text-white transition-colors cursor-pointer">Checkout Gateway</Link></li>
-                <li><Link to="/admin" className="hover:text-white transition-colors cursor-pointer">Merchant Dashboard</Link></li>
-                <li><Link to="/login" className="hover:text-white transition-colors cursor-pointer">Admin Sign In</Link></li>
-                <li><a href="#developers" className="hover:text-white transition-colors cursor-pointer">API Docs</a></li>
-              </ul>
-            </div>
-
-            {/* Col 4: Networks */}
-            <div>
-              <p className="text-xs uppercase font-bold tracking-wider text-muted-foreground mb-4">Chains</p>
-              <ul className="space-y-2 text-xs text-muted-foreground font-mono">
-                {networks.slice(0, 5).map((n) => (
-                  <li key={n.name} className="flex items-center gap-2">
-                    <span className="size-1.5 rounded-full" style={{ background: n.color }} />
-                    {n.name}
+              <ul className="space-y-3">
+                {checkoutFeatures.map((f) => (
+                  <li key={f} className="flex items-center gap-3">
+                    <span className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
+                    </span>
+                    <span>{f}</span>
                   </li>
                 ))}
               </ul>
             </div>
-          </div>
 
-          <div className="mt-14 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-border/40 pt-8 text-xs text-muted-foreground">
-            <p>© 2026 CosMos Pay. Built for non-custodial global crypto commerce.</p>
-            <div className="flex items-center gap-4">
-              <span className="text-foreground/80 font-mono">Status: Mainnet Live</span>
+            <div data-reveal>
+              <CheckoutDemo />
             </div>
           </div>
         </div>
-      </footer>
+      </section>
+
+      {/* DEVELOPERS */}
+      <section className="py-24 md:py-32">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="order-2 lg:order-1" data-reveal>
+              <div className="bg-card border border-border rounded-3xl overflow-hidden">
+                <div className="flex items-center justify-between px-5 py-3 border-b border-border bg-background/40">
+                  <div className="flex gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-destructive" />
+                    <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#e6b335" }} />
+                    <span className="w-2.5 h-2.5 rounded-full bg-primary" />
+                  </div>
+                  <div className="text-xs text-muted-foreground font-mono">checkout.js</div>
+                </div>
+                <pre className="p-6 text-sm font-mono overflow-x-auto leading-relaxed">
+                  <code>{`// accept crypto in 3 lines
+import { CosMonPay } from '@cosmonpay/sdk';
+
+const session = await CosMonPay.createSession({
+  amount: 24900,
+  currency: 'USD',
+  orderId: 'CMP-7842',
+  coins: ['BTC', 'ETH', 'USDT'],
+});
+
+CosMonPay.mount('#checkout', session);`}</code>
+                </pre>
+              </div>
+            </div>
+            <div className="order-1 lg:order-2" data-reveal>
+              <div className="text-sm uppercase tracking-widest text-primary mb-4">Developer first</div>
+              <h2 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05] mb-6 font-fraunces">
+                Ship in a<br />weekend.
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-xl mb-8">
+                A real REST + Webhook API, SDKs for every major stack, and sandbox keys in 30 seconds. Built by devs, for devs.
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                {devFeatures.map((t) => (
+                  <div key={t} className="flex items-center gap-2 text-sm">
+                    <span className="text-primary font-mono">›</span>
+                    <span className="text-muted-foreground">{t}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PRICING */}
+      <section id="pricing" className="py-24 md:py-32 bg-card/30 border-y border-border">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center max-w-2xl mx-auto mb-16" data-reveal>
+            <div className="text-sm uppercase tracking-widest text-primary mb-4">Pricing</div>
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05] font-fraunces">Honest fees. No surprises.</h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-4 max-w-5xl mx-auto">
+            {pricing.map((plan, index) => (
+              <article
+                key={plan.name}
+                className={`p-8 bg-card border border-border rounded-3xl ${plan.popular ? "bg-primary text-primary-foreground relative scale-105 z-10" : ""}`}
+                data-reveal
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                {plan.popular && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-foreground text-background text-xs font-bold rounded-full">
+                    MOST POPULAR
+                  </div>
+                )}
+                <div className="text-sm mb-2" style={{ opacity: plan.popular ? 0.8 : 1, color: plan.popular ? "inherit" : "var(--muted-foreground)" }}>
+                  {plan.name}
+                </div>
+                <div className="text-5xl font-bold mb-1 font-fraunces">{plan.price}</div>
+                <div className="text-sm mb-6" style={{ opacity: plan.popular ? 0.8 : 1, color: plan.popular ? "inherit" : "var(--muted-foreground)" }}>
+                  {plan.period}
+                </div>
+                <ul className="space-y-3 text-sm mb-8">
+                  {plan.features.map((f) => (
+                    <li key={f} className="flex gap-2">
+                      <span style={{ color: plan.popular ? "currentColor" : "var(--primary)" }}>✓</span>
+                      <span style={{ opacity: plan.popular ? 0.9 : 1, color: plan.popular ? "inherit" : "var(--muted-foreground)" }}>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  className={`w-full py-3 rounded-xl font-semibold transition-colors ${
+                    plan.popular
+                      ? "bg-primary-foreground text-primary hover:opacity-90"
+                      : "border border-border hover:bg-background"
+                  }`}
+                >
+                  {plan.cta}
+                </button>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section id="faq" className="py-24 md:py-32">
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="text-center mb-16" data-reveal>
+            <div className="text-sm uppercase tracking-widest text-primary mb-4">FAQ</div>
+            <h2 className="text-5xl md:text-6xl font-bold tracking-tight leading-[1.05] font-fraunces">Common questions.</h2>
+          </div>
+
+          <div className="space-y-3">
+            {faqs.map((f, index) => (
+              <details key={f.q} className="group p-6 bg-card border border-border rounded-2xl" data-reveal style={{ animationDelay: `${index * 50}ms` }}>
+                <summary className="flex items-center justify-between cursor-pointer list-none">
+                  <span className="font-semibold text-lg">{f.q}</span>
+                  <span className="text-primary transition-transform duration-300 group-open:rotate-45 text-2xl leading-none">+</span>
+                </summary>
+                <p className="mt-4 text-muted-foreground leading-relaxed">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 md:py-32">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="relative bg-card border border-border rounded-3xl p-12 md:p-20 overflow-hidden" data-reveal>
+            <div
+              className="absolute inset-0 opacity-30"
+              style={{ background: "radial-gradient(circle at 30% 50%, rgba(163,230,53,0.3), transparent 50%)" }}
+            />
+            <div className="relative">
+              <h2 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05] mb-6 font-fraunces">
+                Start accepting<br />crypto today.
+              </h2>
+              <p className="text-xl text-muted-foreground mb-10 max-w-xl">No setup fees. No monthly minimums. Cancel anytime.</p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  to="/signup"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground rounded-2xl font-semibold"
+                >
+                  Get started
+                </Link>
+                <a
+                  href="#checkout"
+                  className="inline-flex items-center justify-center px-8 py-4 border border-border rounded-2xl font-semibold"
+                >
+                  Try the demo
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </main>
   );
 }
