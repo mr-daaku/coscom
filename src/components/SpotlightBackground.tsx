@@ -76,20 +76,21 @@ export default function SpotlightBackground() {
       {/* After Image - sits just above the before image and is revealed through a
           cursor-following spotlight mask. It lives BEHIND the page content (never
           above it), so the effect keeps running even when the cursor is over a
-          button/link — the control simply stays visible on top of the spotlight. */}
-      {isHovering && (
-        <div
-          aria-hidden
-          className="pointer-events-none fixed inset-0 -z-10"
-          style={{
-            backgroundImage: 'url("/assets/background-after-img.png")',
-            backgroundSize: "90%",
-            backgroundPosition: "center",
-            maskImage: `radial-gradient(circle ${SPOTLIGHT_RADIUS}px at ${mousePos.x}px ${mousePos.y}px, black 0%, transparent 70%)`,
-            WebkitMaskImage: `radial-gradient(circle ${SPOTLIGHT_RADIUS}px at ${mousePos.x}px ${mousePos.y}px, black 0%, transparent 70%)`,
-          }}
-        />
-      )}
+          button/link — the control simply stays visible on top of the spotlight.
+          It is always mounted and faded with opacity so the image preloads and
+          the spotlight fades in/out smoothly instead of popping in. */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 -z-10 transition-opacity duration-300"
+        style={{
+          opacity: isHovering ? 1 : 0,
+          backgroundImage: 'url("/assets/background-after-img.png")',
+          backgroundSize: "90%",
+          backgroundPosition: "center",
+          maskImage: `radial-gradient(circle ${SPOTLIGHT_RADIUS}px at ${mousePos.x}px ${mousePos.y}px, black 0%, transparent 70%)`,
+          WebkitMaskImage: `radial-gradient(circle ${SPOTLIGHT_RADIUS}px at ${mousePos.x}px ${mousePos.y}px, black 0%, transparent 70%)`,
+        }}
+      />
     </>
   );
 }
