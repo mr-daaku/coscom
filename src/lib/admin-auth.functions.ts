@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { useSession } from "@tanstack/react-start/server";
+import { verifyAdminLogin } from "@/integrations/cloudflare/d1";
 
 type AdminSession = { username?: string; role?: string };
 
@@ -19,16 +20,14 @@ export const adminLogin = createServerFn({ method: "POST" })
     const password = String(data.password ?? "");
     if (!username || !password) return { ok: false as const };
 
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data: rows, error } = await supabaseAdmin.rpc("verify_admin_login", {
-      _username: username,
-      _password: password,
-    });
-    if (error) {
-      console.error("admin login error", error.message);
+    let admin: { username: string; role: string } | null = null;
+    try {
+      admin = await verifyAdminLogin(username, password);
+    } catch (error) {
+      // D1 binding missing / DB error — never leak internals to the client.
+      console.error("admin login db error", error);
       return { ok: false as const };
     }
-    const admin = rows?.[0];
     if (!admin) return { ok: false as const };
 
     const session = await useSession<AdminSession>(sessionConfig());

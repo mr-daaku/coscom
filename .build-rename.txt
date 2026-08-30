@@ -1,0 +1,115 @@
+
+> build
+> vite build
+
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[36mvite v8.1.5 [32mbuilding client environment for production...[36m[39m
+[2Ktransforming...[33m[plugin tanstack-start-core::server-fn:client] C:/Users/Gaurav/OneDrive/Desktop/coscom/src/lib/admin-auth.functions.ts:16:27 createServerFn().inputValidator() is deprecated. Use createServerFn().validator() instead.[39m
+✓ 1907 modules transformed.
+rendering chunks...
+computing gzip size...
+.output/public/assets/styles-JkjhHoGP.css              136.14 kB │ gzip:  20.45 kB
+.output/public/assets/mail-D-rIzWD6.js                   1.19 kB │ gzip:   0.58 kB
+.output/public/assets/SpotlightBackground-B7MSZRpC.js    2.84 kB │ gzip:   1.37 kB
+.output/public/assets/jsx-runtime-Cltr0gcK.js            8.43 kB │ gzip:   3.21 kB
+.output/public/assets/login-B_Hv7_Q_.js                  9.12 kB │ gzip:   2.87 kB
+.output/public/assets/signup-BrtMQxsK.js                14.91 kB │ gzip:   4.05 kB
+.output/public/assets/pay-CF1janFW.js                   32.87 kB │ gzip:   7.44 kB
+.output/public/assets/routes-BPgzfU9A.js                33.96 kB │ gzip:   7.72 kB
+.output/public/assets/admin-Aa7hysNP.js                 66.58 kB │ gzip:  18.26 kB
+.output/public/assets/index-GQS6K8xF.js                344.60 kB │ gzip: 108.42 kB
+
+[33m[33m[PLUGIN_TIMINGS] [0mYour build spent significant time in plugins. Here is a breakdown:
+  - vite-tsconfig-paths (59%)
+  - tanstack-start-core:import-protection (27%)
+  - tanstack-start-core:import-protection-transform-cache (13%)
+See https://rolldown.rs/reference/InputOptions.checks#plugintimings for more details.
+[39m
+[32m✓ built in 15.23s[39m
+[36mvite v8.1.5 [32mbuilding ssr environment for production...[36m[39m
+[2Ktransforming...[33m[plugin tanstack-start-core::server-fn:ssr] C:/Users/Gaurav/OneDrive/Desktop/coscom/src/lib/admin-auth.functions.ts?tss-serverfn-split:16:27 createServerFn().inputValidator() is deprecated. Use createServerFn().validator() instead.[39m
+[33m[plugin tanstack-start-core::server-fn:ssr] C:/Users/Gaurav/OneDrive/Desktop/coscom/src/lib/admin-auth.functions.ts:16:27 createServerFn().inputValidator() is deprecated. Use createServerFn().validator() instead.[39m
+✓ 83 modules transformed.
+rendering chunks...
+computing gzip size...
+node_modules/.nitro/vite/services/ssr/assets/styles-JkjhHoGP.css                                136.14 kB │ gzip: 20.45 kB
+node_modules/.nitro/vite/services/ssr/assets/empty-plugin-adapters-D9UWiqvJ.js                    0.22 kB │ gzip:  0.16 kB
+node_modules/.nitro/vite/services/ssr/assets/__23tanstack-start-server-fn-resolver-1w0TXDf_.js    1.18 kB │ gzip:  0.54 kB
+node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-Bh73-Lvy.js               1.45 kB │ gzip:  0.50 kB
+node_modules/.nitro/vite/services/ssr/assets/start-RKGGYzjZ.js                                    1.57 kB │ gzip:  0.71 kB
+node_modules/.nitro/vite/services/ssr/assets/admin-BbG61zSX.js                                    2.16 kB │ gzip:  1.08 kB
+node_modules/.nitro/vite/services/ssr/assets/request-response-DrMnHfig.js                         2.66 kB │ gzip:  0.99 kB
+node_modules/.nitro/vite/services/ssr/assets/SpotlightBackground-BQkZepCe.js                      2.83 kB │ gzip:  1.12 kB
+node_modules/.nitro/vite/services/ssr/assets/createCsrfMiddleware-B2To0gPJ.js                     3.19 kB │ gzip:  1.01 kB
+node_modules/.nitro/vite/services/ssr/assets/admin-auth.functions-BGX5EDrM.js                     3.95 kB │ gzip:  1.60 kB
+node_modules/.nitro/vite/services/ssr/index.js                                                    4.61 kB │ gzip:  1.92 kB
+node_modules/.nitro/vite/services/ssr/assets/createServerFn-CIHAFgYl.js                           9.82 kB │ gzip:  2.99 kB
+node_modules/.nitro/vite/services/ssr/assets/router-BJUgsVD2.js                                  10.02 kB │ gzip:  2.70 kB
+node_modules/.nitro/vite/services/ssr/assets/login-BR3UNd74.js                                   13.98 kB │ gzip:  3.52 kB
+node_modules/.nitro/vite/services/ssr/assets/signup-vweeiLDR.js                                  22.42 kB │ gzip:  4.72 kB
+node_modules/.nitro/vite/services/ssr/assets/routes-fe33x7qy.js                                  48.97 kB │ gzip:  8.80 kB
+node_modules/.nitro/vite/services/ssr/assets/server-Doa-wY-7.js                                  50.95 kB │ gzip: 13.15 kB
+node_modules/.nitro/vite/services/ssr/assets/pay-BqHrtemS.js                                     53.38 kB │ gzip:  9.80 kB
+node_modules/.nitro/vite/services/ssr/assets/admin-BLi3Jvct.js                                   59.10 kB │ gzip: 12.34 kB
+
+[33m[33m[PLUGIN_TIMINGS] [0mYour build spent significant time in plugins. Here is a breakdown:
+  - tanstack-start-core:import-protection (42%)
+  - tanstack-start-core:import-protection-transform-cache (30%)
+  - vite-tsconfig-paths (9%)
+  - tanstack-router:code-splitter:compile-reference-file (8%)
+  - tanstack-start-core::server-fn:ssr (6%)
+See https://rolldown.rs/reference/InputOptions.checks#plugintimings for more details.
+[39m
+[32m✓ built in 6.17s[39m
+
+[90m[[90mnitro[90m][39m [35m◐[39m Building [[35mNitro[39m] [2m(preset: [36mcloudflare-module[39m, compatibility: [36m2026-08-30[39m)[22m
+[90m[[90mnitro[90m][39m [32m✔[39m Generated public [36m.output/public[39m
+[36mvite v8.1.5 [32mbuilding nitro environment for production...[36m[39m
+
+[43m[30m WARN [39m[49m [36minlineDynamicImports[39m option is ignored because the [36mcodeSplitting[39m option is specified.
+
+[2Ktransforming...✓ 1945 modules transformed.
+rendering chunks...
+computing gzip size...
+.output/server/_ssr/empty-plugin-adapters-D9UWiqvJ.mjs               0.23 kB │ gzip:   0.16 kB
+.output/server/_libs/clsx.mjs                                        0.55 kB │ gzip:   0.31 kB
+.output/server/_chunks/ssr-renderer.mjs                              0.60 kB │ gzip:   0.36 kB
+.output/server/_libs/hookable.mjs                                    1.16 kB │ gzip:   0.51 kB
+.output/server/__23tanstack-start-server-fn-resolver-1w0TXDf_.mjs    1.25 kB │ gzip:   0.59 kB
+.output/server/_runtime.mjs                                          1.32 kB │ gzip:   0.65 kB
+.output/server/_tanstack-start-manifest_v-Bh73-Lvy.mjs               1.51 kB │ gzip:   0.54 kB
+.output/server/_ssr/start-RKGGYzjZ.mjs                               1.53 kB │ gzip:   0.70 kB
+.output/server/_ssr/admin-BbG61zSX.mjs                               2.15 kB │ gzip:   1.10 kB
+.output/server/_ssr/request-response-DrMnHfig.mjs                    2.70 kB │ gzip:   1.03 kB
+.output/server/_ssr/createCsrfMiddleware-B2To0gPJ.mjs                3.11 kB │ gzip:   1.01 kB
+.output/server/_ssr/SpotlightBackground-BQkZepCe.mjs                 3.21 kB │ gzip:   1.23 kB
+.output/server/_ssr/admin-auth.functions-BGX5EDrM.mjs                4.05 kB │ gzip:   1.65 kB
+.output/server/_ssr/ssr.mjs                                          4.55 kB │ gzip:   1.92 kB
+.output/server/_ssr/createServerFn-CIHAFgYl.mjs                      9.39 kB │ gzip:   2.99 kB
+.output/server/_ssr/router-BJUgsVD2.mjs                             10.50 kB │ gzip:   2.78 kB
+.output/server/_libs/lucide-react.mjs                               10.72 kB │ gzip:   2.62 kB
+.output/server/_libs/tanstack__history.mjs                          12.09 kB │ gzip:   3.48 kB
+.output/server/index.mjs                                            13.93 kB │ gzip:   4.28 kB
+.output/server/_ssr/login-BR3UNd74.mjs                              16.05 kB │ gzip:   3.67 kB
+.output/server/_libs/h3+rou3+srvx.mjs                               16.61 kB │ gzip:   4.80 kB
+.output/server/_libs/react+tanstack__react-query.mjs                17.65 kB │ gzip:   4.65 kB
+.output/server/_ssr/signup-vweeiLDR.mjs                             25.31 kB │ gzip:   4.88 kB
+.output/server/_libs/h3-v2+rou3+srvx.mjs                            34.60 kB │ gzip:   9.60 kB
+.output/server/_libs/bcryptjs.mjs                                   47.12 kB │ gzip:  14.15 kB
+.output/server/_libs/tanstack__query-core.mjs                       48.17 kB │ gzip:  10.70 kB
+.output/server/_ssr/server-Doa-wY-7.mjs                             49.79 kB │ gzip:  13.05 kB
+.output/server/_ssr/routes-fe33x7qy.mjs                             55.89 kB │ gzip:   9.02 kB
+.output/server/_ssr/pay-BqHrtemS.mjs                                59.35 kB │ gzip:  10.05 kB
+.output/server/_ssr/admin-BLi3Jvct.mjs                              67.68 kB │ gzip:  12.49 kB
+.output/server/_libs/@tanstack/router-core+[...].mjs                80.26 kB │ gzip:  20.17 kB
+.output/server/_libs/tailwind-merge.mjs                             88.13 kB │ gzip:  15.66 kB
+.output/server/_libs/@tanstack/react-router+[...].mjs              650.04 kB │ gzip: 137.14 kB
+
+[32m✓ built in 2.29s[39m
+[36mℹ[39m Generated [36m.output/server/wrangler.json[39m
+[36mℹ[39m Generated [36m.wrangler/deploy/config.json[39m
+[36mℹ[39m Generated [36m.output/public/_headers[39m
+[36mℹ[39m Generated [36m.output/nitro.json[39m
+
+[90m[[90mnitro[90m][39m [32m✔[39m You can preview this build using [36mnpx vite preview[39m
+[90m[[90mnitro[90m][39m [32m✔[39m You can deploy this build using [36mnpx nitro deploy --prebuilt[39m

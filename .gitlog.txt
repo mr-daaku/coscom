@@ -1,0 +1,51 @@
+cb3e12a Update project
+b39d951 feat: overhaul landing page with 21st.dev and UI/UX Pro Max design system
+a913393 Add project README
+3e987d0 Added auth, routes, and fonts
+be1851c Changes
+ad70567 Changes
+376b420 Changes
+89bb05a Changes
+8234161 Changes
+b54f1a7 Changes
+1127908 Implemented full web auth layer
+abc3040 Work in progress
+e6b60df Implemented full web app
+5834698 Changes
+b221170 Changes
+{
+  "compatibility_date": "2026-08-30",
+  "name": "mr-daaku-coscom",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "coscon-db",
+      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
+      "migrations_dir": "./d1/migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "R1_STORE",
+      "bucket_name": "coscon-r1"
+    }
+  ],
+  "main": "index.mjs",
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "..\\public"
+  },
+  "no_bundle": true,
+  "rules": [
+    {
+      "type": "ESModule",
+      "globs": [
+        "**/*.mjs",
+        "**/*.js"
+      ]
+    }
+  ]
+}

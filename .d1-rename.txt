@@ -1,0 +1,26 @@
+
+> db:migrate:remote
+> wrangler d1 migrations apply cosmon-db --remote
+
+
+ ⛅️ wrangler 4.125.0
+────────────────────
+Resource location: remote 
+
+Migrations to be applied:
+┌───────────────┐
+│ name          │
+├───────────────┤
+│ 0001_init.sql │
+└───────────────┘
+? About to apply 1 migration(s)
+Your database may not be available to serve requests during the migration, continue?
+🤖 Using fallback value in non-interactive context: yes
+🌀 Executing on remote database cosmon-db (559e5770-b8eb-4e2e-b553-2ac5d0c5760c):
+🌀 To execute on your local development database, remove the --remote flag from your wrangler command.
+🚣 Executed 3 commands in 0.84ms
+┌───────────────┬────────┐
+│ name          │ status │
+├───────────────┼────────┤
+│ 0001_init.sql │ ✅     │
+└───────────────┴────────┘

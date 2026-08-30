@@ -123,7 +123,7 @@ function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen bg-background flex relative overflow-hidden">
+    <main className="min-h-screen bg-background flex relative overflow-hidden isolate">
       <SpotlightBackground />
 
       {/* Foreground Content */}

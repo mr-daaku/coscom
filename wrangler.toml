@@ -1,0 +1,26 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Cloudflare Workers configuration — CosCon Pay
+# ─────────────────────────────────────────────────────────────────────────────
+# The Nitro `cloudflare-module` build (`.output/server`) merges the bindings
+# declared here into the generated `.output/server/wrangler.json`, so D1 is
+# available as `env.DB` on the deployed Worker.
+#
+# One-time setup:
+#   wrangler d1 create cosmon-db        # → paste database_id below
+#   wrangler r2 bucket create coscon-r1
+#   npm run db:migrate:remote           # apply ./d1/migrations to remote D1
+#
+# Local dry-run (uses a local Miniflare D1):
+#   npm run db:migrate:local
+
+name = "mr-daaku-coscom"
+account_id = "a251068ef1eb87036f208dc9970b26ab"
+compatibility_date = "2026-08-30"
+compatibility_flags = ["nodejs_compat"]
+
+# ── D1 (SQLite database) ─────────────────────────────────────────────────────
+[[d1_databases]]
+binding = "DB"
+database_name = "cosmon-db"
+database_id = "559e5770-b8eb-4e2e-b553-2ac5d0c5760c"
+migrations_dir = "./d1/migrations"

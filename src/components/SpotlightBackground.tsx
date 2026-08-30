@@ -4,11 +4,6 @@ import { useState, useRef, useEffect } from "react";
 
 const SPOTLIGHT_RADIUS = 250;
 
-// Elements over which the spotlight ("after" image) should NOT appear.
-// Interactive controls stay fully readable and clickable.
-const INTERACTIVE_SELECTOR =
-  "button, a, input, select, textarea, label, summary, [role='button'], [role='link'], [role='tab'], [role='menuitem'], [contenteditable='true']";
-
 export default function SpotlightBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -24,24 +19,10 @@ export default function SpotlightBackground() {
 
     let rafId: number | null = null;
 
-    const applyPosition = (
-      clientX: number,
-      clientY: number,
-      target: EventTarget | null
-    ) => {
+    const applyPosition = (clientX: number, clientY: number) => {
       const rect = el.getBoundingClientRect();
       const x = clientX - rect.left;
       const y = clientY - rect.top;
-
-      // Keep buttons, links and form controls crisp: never cover them with the
-      // "after" spotlight so they stay readable and clickable.
-      const t = target instanceof Element ? target : null;
-      const overInteractive = !!t && !!t.closest(INTERACTIVE_SELECTOR);
-
-      if (overInteractive) {
-        setIsHovering(false);
-        return;
-      }
 
       setMousePos({ x, y });
       setIsHovering(x >= 0 && y >= 0 && x <= rect.width && y <= rect.height);
@@ -49,12 +30,12 @@ export default function SpotlightBackground() {
 
     const handleMouseMove = (e: MouseEvent) => {
       // Snapshot coordinates now — the event object may be reused by the browser.
-      const { clientX, clientY, target } = e;
+      const { clientX, clientY } = e;
       if (rafId !== null) return;
 
       rafId = window.requestAnimationFrame(() => {
         rafId = null;
-        applyPosition(clientX, clientY, target);
+        applyPosition(clientX, clientY);
       });
     };
 
@@ -77,8 +58,11 @@ export default function SpotlightBackground() {
 
   return (
     <>
-      {/* Before Image - Always visible, behind the page content */}
-      <div ref={containerRef} className="pointer-events-none fixed inset-0 z-0">
+      {/* Before Image - fixed backdrop at the very back of the page. The negative
+          z-index (inside the page's `isolate` stacking context) keeps it above the
+          page background but BELOW all content, so the footer, cards, buttons and
+          links always stay visible and clickable on top of it. */}
+      <div ref={containerRef} className="pointer-events-none fixed inset-0 -z-20">
         <div
           className="absolute inset-0 bg-center bg-fixed"
           style={{
@@ -89,13 +73,14 @@ export default function SpotlightBackground() {
         />
       </div>
 
-      {/* After Image - ABOVE the page content (below header z-50) so it visually
-          replaces text under the cursor inside a big spotlight.
-          Hidden over buttons/links so they stay readable & clickable. */}
+      {/* After Image - sits just above the before image and is revealed through a
+          cursor-following spotlight mask. It lives BEHIND the page content (never
+          above it), so the effect keeps running even when the cursor is over a
+          button/link — the control simply stays visible on top of the spotlight. */}
       {isHovering && (
         <div
           aria-hidden
-          className="pointer-events-none fixed inset-0 z-40"
+          className="pointer-events-none fixed inset-0 -z-10"
           style={{
             backgroundImage: 'url("/assets/background-after-img.png")',
             backgroundSize: "90%",
