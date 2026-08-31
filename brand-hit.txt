@@ -1,0 +1,80 @@
+﻿src\components\admin\pages.tsx:694: <input className={inputClass} defaultValue="CosCon Pay" />
+src\components\admin\pages.tsx:720: <input className={inputClass} defaultValue="https://example.com/hooks/coscon" />
+src\components\admin\Sidebar.tsx:146: <p className="text-sm font-semibold">CosCon Pay</p>
+src\components\CheckoutDemo.tsx:17: const cosmonpayFee = 0.004; // 0.4%
+src\components\CheckoutDemo.tsx:26: const cosmonpayFeeAmount = (amountUSD * cosmonpayFee).toFixed(2);
+src\components\CheckoutDemo.tsx:27: const totalUSD = (amountUSD + networkFee + parseFloat(cosmonpayFeeAmount)).toFixed(2);
+src\components\CheckoutDemo.tsx:41: <div className="text-sm text-muted-foreground font-mono">cosmonpay://checkout</div>
+src\components\CheckoutDemo.tsx:101: <span className="text-muted-foreground">CosMonPay fee</span>
+src\components\CheckoutDemo.tsx:102: <span className="font-mono text-primary">{cosmonpayFeeAmount}</span>
+src\components\ComparisonMatrix.tsx:7: cosmos: "0.0% (Zero Fee)",
+src\components\ComparisonMatrix.tsx:14: cosmos: "Instant (< 1 Second)",
+src\components\ComparisonMatrix.tsx:21: cosmos: "100% Non-Custodial",
+src\components\ComparisonMatrix.tsx:28: cosmos: "0% (Mathematically Zero)",
+src\components\ComparisonMatrix.tsx:35: cosmos: "7+ Chains (EVM, Solana, TON)",
+src\components\ComparisonMatrix.tsx:42: cosmos: "Zero KYC, 1-Click Pay",
+src\components\ComparisonMatrix.tsx:57: Why Merchants Choose <span className="gradient-text">CosMos Pay</span>
+src\components\ComparisonMatrix.tsx:72: <span>CosMos Pay</span>
+src\components\ComparisonMatrix.tsx:93: <span>{item.cosmos}</span>
+src\components\DeveloperApiSandbox.tsx:10: import { CosmosPaymentWidget } from "@cosmos-pay/react";
+src\components\DeveloperApiSandbox.tsx:14: <CosmosPaymentWidget
+src\components\DeveloperApiSandbox.tsx:26: import { CosmosGateway } from "@cosmos-pay/sdk";
+src\components\DeveloperApiSandbox.tsx:28: const cosmos = new CosmosGateway({
+src\components\DeveloperApiSandbox.tsx:30: adminSecret: process.env.COSMOS_ADMIN_SECRET,
+src\components\DeveloperApiSandbox.tsx:34: const invoice = await cosmos.invoices.create({
+src\components\DeveloperApiSandbox.tsx:38: webhookUrl: "https://api.yourdomain.com/webhooks/cosmos",
+src\components\DeveloperApiSandbox.tsx:50: "webhookUrl": "https://api.yourdomain.com/webhooks/cosmos",
+src\components\DeveloperApiSandbox.tsx:55: from cosmospay import CosmosGateway
+src\components\DeveloperApiSandbox.tsx:57: client = CosmosGateway(
+src\components\DeveloperApiSandbox.tsx:59: admin_secret=os.getenv("COSMOS_ADMIN_SECRET")
+src\components\DeveloperApiSandbox.tsx:66: webhook_url="https://api.yourdomain.com/webhooks/cosmos",
+src\components\Footer.tsx:54: <Link to="/" className="flex items-center gap-3" aria-label="CosMonPay Home">
+src\components\Footer.tsx:61: <span className="text-xl font-bold font-fraunces text-foreground">CosMonPay</span>
+src\components\Footer.tsx:142: © {currentYear} CosMonPay. All rights reserved.
+src\components\Header.tsx:36: <Link to="/" className="flex items-center gap-3" aria-label="CosMonPay Home">
+src\components\Header.tsx:43: <span className="text-xl font-bold font-fraunces text-foreground">CosMonPay</span>
+src\components\InteractivePaymentDemo.tsx:233: <span>Merchant Fee (CosMos):</span>
+src\components\Navbar.tsx:39: CosMos <span className="text-primary font-bold">Pay</span>
+src\components\SelfHostArchitecture.tsx:42: <h4 className="text-base font-bold text-white mt-1">Your CosMos Node</h4>
+src\components\SelfHostDeployHub.tsx:46: pm2 start npm --name "cosmos-gateway" -- run preview`,
+src\components\SelfHostDeployHub.tsx:87: Run CosMos Pay on your own servers with zero middlemen, zero telemetry, and 100% data sovereignty.
+src\integrations\cloudflare\d1.ts:1: // Cloudflare D1 (SQLite) integration for CosCon Pay.
+src\lib\admin-auth.functions.ts:10: name: "coscon-admin",
+src\routes\admin.tsx:13: { title: "Admin Panel — CosCon Pay Gateway" },
+src\routes\admin.tsx:17: "CosCon Pay admin panel: payments, invoices, wallets, tokens, networks, monitoring, analytics and audit logs.",
+src\routes\admin.tsx:19: { property: "og:title", content: "CosCon Pay Admin Panel" },
+src\routes\index.tsx:25: { title: "CosMonPay — The Gateway to Crypto Commerce" },
+src\routes\index.tsx:31: { property: "og:title", content: "CosMonPay — The Gateway to Crypto Commerce" },
+src\routes\index.tsx:154: a: "Yes. Funds flow directly from buyer to merchant. CosMonPay never holds your money.",
+src\routes\index.tsx:265: <div className="text-sm text-muted-foreground font-mono">cosmonpay://checkout</div>
+src\routes\index.tsx:304: <span className="text-muted-foreground">CosMonPay fee</span>
+src\routes\index.tsx:333: <div className="text-sm uppercase tracking-widest text-primary mb-4">Why CosMonPay</div>
+src\routes\index.tsx:432: import { CosMonPay } from '@cosmonpay/sdk';
+src\routes\index.tsx:434: const session = await CosMonPay.createSession({
+src\routes\index.tsx:441: CosMonPay.mount('#checkout', session);`}</code>
+src\routes\login.tsx:21: { title: "Sign In — CosMonPay" },
+src\routes\login.tsx:24: content: "Sign in to your CosMonPay merchant account.",
+src\routes\login.tsx:26: { property: "og:title", content: "Sign In — CosMonPay" },
+src\routes\login.tsx:27: { property: "og:description", content: "Sign in to your CosMonPay merchant account." },
+src\routes\login.tsx:134: <Link to="/" className="flex items-center gap-3" aria-label="CosMonPay Home">
+src\routes\login.tsx:141: <span className="text-2xl font-bold font-fraunces text-foreground">CosMonPay</span>
+src\routes\pay.tsx:7: { title: "Pay Invoice — CosMos Pay" },
+src\routes\pay.tsx:13: { property: "og:title", content: "Pay with crypto — CosMos Pay" },
+src\routes\pay.tsx:329: ctx.fillText("Powered by CosMos Pay", 400, 920);
+src\routes\pay.tsx:335: link.download = `CosMos-Receipt-${Date.now()}.png`;
+src\routes\pay.tsx:484: Powered by CosMos Pay
+src\routes\pay.tsx:523: {/* CosMos Brand */}
+src\routes\pay.tsx:533: <p className="text-sm font-bold tracking-tight">CosMos</p>
+src\routes\pay.tsx:700: { label: "Merchant", value: "CosMos" },
+src\routes\pay.tsx:752: { label: "API Provider", value: "CosMos Pay v2.1" },
+src\routes\pay.tsx:841: <span>CosMos Pay</span>
+src\routes\pay.tsx:937: <span>CosMos Pay</span>
+src\routes\signup.tsx:21: { title: "Create Account — CosMonPay" },
+src\routes\signup.tsx:24: content: "Create your CosMonPay merchant account and start accepting crypto payments.",
+src\routes\signup.tsx:26: { property: "og:title", content: "Create Account — CosMonPay" },
+src\routes\signup.tsx:189: <Link to="/" className="flex items-center gap-3" aria-label="CosMonPay Home">
+src\routes\signup.tsx:196: <span className="text-2xl font-bold font-fraunces text-foreground">CosMonPay</span>
+src\routes\signup.tsx:364: I agree to the <a href="/terms" className="text-primary hover:underline">Terms of Service</a> and <a href="/privacy" className="text-primary hover:underline">Privacy Policy</a>. I understand that CosMonPay is a non-custodial payment processor and I am responsible for securing my wallet credentials.
+src\routes\__root.tsx:80: { title: "CosCon Pay — Crypto Payment Gateway" },
+src\routes\__root.tsx:85: { name: "author", content: "CosCon Pay" },
+src\routes\__root.tsx:86: { property: "og:title", content: "CosCon Pay — Crypto Payment Gateway" },

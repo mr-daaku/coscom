@@ -691,7 +691,7 @@ export function Settings() {
           <h3 className="mb-5 text-sm font-semibold">General</h3>
           <div className="space-y-4">
             <Field label="Gateway Name">
-              <input className={inputClass} defaultValue="CosCon Pay" />
+              <input className={inputClass} defaultValue="CosComPay" />
             </Field>
             <Field label="Default Currency">
               <select className={inputClass} defaultValue="USD">
@@ -717,7 +717,7 @@ export function Settings() {
           <h3 className="mb-5 text-sm font-semibold">Webhooks</h3>
           <div className="space-y-4">
             <Field label="Webhook URL">
-              <input className={inputClass} defaultValue="https://example.com/hooks/coscon" />
+              <input className={inputClass} defaultValue="https://example.com/hooks/coscompay" />
             </Field>
             <Field label="Secret Key">
               <input className={`${inputClass} mono`} type="password" defaultValue="whsec_demo_key" />

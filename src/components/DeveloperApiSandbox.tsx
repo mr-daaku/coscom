@@ -7,11 +7,11 @@ export default function DeveloperApiSandbox() {
 
   const snippets = {
     react: `// 1. Embed Drop-in React / Next.js Checkout Component
-import { CosmosPaymentWidget } from "@cosmos-pay/react";
+import { CosComPayPaymentWidget } from "@coscompay/react";
 
 export function CheckoutModal({ orderId, totalUSD }: { orderId: string; totalUSD: number }) {
   return (
-    <CosmosPaymentWidget
+    <CosComPayPaymentWidget
       endpoint="https://pay.yourdomain.com" // Your Self-Hosted Gateway
       amountUSD={totalUSD}
       orderId={orderId}
@@ -23,19 +23,19 @@ export function CheckoutModal({ orderId, totalUSD }: { orderId: string; totalUSD
 }`,
 
     typescript: `// 2. Node.js / TypeScript Server SDK
-import { CosmosGateway } from "@cosmos-pay/sdk";
+import { CosComPayGateway } from "@coscompay/sdk";
 
-const cosmos = new CosmosGateway({
+const coscompay = new CosComPayGateway({
   endpoint: "https://pay.yourdomain.com", // Your Self-Hosted Instance
-  adminSecret: process.env.COSMOS_ADMIN_SECRET,
+  adminSecret: process.env.COSCOMPAY_ADMIN_SECRET,
 });
 
 // Create a dynamic multi-chain crypto invoice
-const invoice = await cosmos.invoices.create({
+const invoice = await coscompay.invoices.create({
   amountUSD: 99.00,
   acceptedChains: ["solana", "tron", "bsc", "ethereum", "ton"],
   metadata: { orderId: "ORD-9912", userId: "usr_401" },
-  webhookUrl: "https://api.yourdomain.com/webhooks/cosmos",
+  webhookUrl: "https://api.yourdomain.com/webhooks/coscompay",
 });
 
 console.log("Deposit Address:", invoice.payAddress);`,
@@ -47,23 +47,23 @@ curl -X POST https://pay.yourdomain.com/api/v1/invoices \\
   -d '{
     "amountUSD": 99.00,
     "acceptedTokens": ["USDT", "BTC", "ETH", "SOL"],
-    "webhookUrl": "https://api.yourdomain.com/webhooks/cosmos",
+    "webhookUrl": "https://api.yourdomain.com/webhooks/coscompay",
     "metadata": { "orderId": "ORD-9912" }
   }'`,
 
     python: `# 4. Python / Django / FastAPI SDK
-from cosmospay import CosmosGateway
+from coscompay import CosComPayGateway
 
-client = CosmosGateway(
+client = CosComPayGateway(
     endpoint="https://pay.yourdomain.com",
-    admin_secret=os.getenv("COSMOS_ADMIN_SECRET")
+    admin_secret=os.getenv("COSCOMPAY_ADMIN_SECRET")
 )
 
 # Generate payment session
 invoice = client.invoices.create(
     amount_usd=99.00,
     accepted_tokens=["USDT", "BTC", "ETH", "SOL", "TON"],
-    webhook_url="https://api.yourdomain.com/webhooks/cosmos",
+    webhook_url="https://api.yourdomain.com/webhooks/coscompay",
     metadata={"order_id": "ORD-9912"}
 )
 

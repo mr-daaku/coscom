@@ -36,7 +36,7 @@ export default function Navbar() {
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-black tracking-tight text-white flex items-center gap-1.5">
-                CosMos <span className="text-primary font-bold">Pay</span>
+                CosCom<span className="text-primary font-bold">Pay</span>
                 <span className="rounded-md border border-emerald-500/30 bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-400 uppercase tracking-wider">
                   Open-Source
                 </span>

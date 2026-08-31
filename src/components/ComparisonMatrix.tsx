@@ -4,42 +4,42 @@ export default function ComparisonMatrix() {
   const comparisons = [
     {
       feature: "Merchant Processing Fee",
-      cosmos: "0.0% (Zero Fee)",
+      coscompay: "0.0% (Zero Fee)",
       stripe: "2.9% + $0.30 / tx",
       custodial: "1.0% - 1.5%",
       highlight: true,
     },
     {
       feature: "Settlement Speed",
-      cosmos: "Instant (< 1 Second)",
+      coscompay: "Instant (< 1 Second)",
       stripe: "2 - 7 Business Days",
       custodial: "Daily / Weekly Batch",
       highlight: true,
     },
     {
       feature: "Fund Custody & Control",
-      cosmos: "100% Non-Custodial",
+      coscompay: "100% Non-Custodial",
       stripe: "Frozen Account Risk",
       custodial: "Third-Party Held",
       highlight: true,
     },
     {
       feature: "Chargeback & Fraud Risk",
-      cosmos: "0% (Mathematically Zero)",
+      coscompay: "0% (Mathematically Zero)",
       stripe: "High Chargeback Risk",
       custodial: "Low",
       highlight: false,
     },
     {
       feature: "Multi-Chain Support",
-      cosmos: "7+ Chains (EVM, Solana, TON)",
+      coscompay: "7+ Chains (EVM, Solana, TON)",
       stripe: "None / Restricted",
       custodial: "1-2 Chains Only",
       highlight: false,
     },
     {
       feature: "Customer Friction & KYC",
-      cosmos: "Zero KYC, 1-Click Pay",
+      coscompay: "Zero KYC, 1-Click Pay",
       stripe: "Card, Billing & 3DS",
       custodial: "Account Verification",
       highlight: false,
@@ -54,7 +54,7 @@ export default function ComparisonMatrix() {
           The Unfair Advantage
         </span>
         <h3 className="mt-3 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-          Why Merchants Choose <span className="gradient-text">CosMos Pay</span>
+          Why Merchants Choose <span className="gradient-text">CosComPay</span>
         </h3>
         <p className="mt-2 text-sm text-muted-foreground max-w-xl mx-auto">
           Eliminate processor middlemen, prevent predatory chargebacks, and receive crypto directly into your private wallet.
@@ -69,7 +69,7 @@ export default function ComparisonMatrix() {
               <th className="pb-4 pt-2 font-bold text-primary">
                 <div className="flex items-center gap-2">
                   <span className="flex size-2 rounded-full bg-success animate-ping" />
-                  <span>CosMos Pay</span>
+                  <span>CosComPay</span>
                 </div>
               </th>
               <th className="pb-4 pt-2 font-semibold">Stripe / PayPal</th>
@@ -90,7 +90,7 @@ export default function ComparisonMatrix() {
                 <td className="py-4 font-bold text-success font-mono">
                   <div className="flex items-center gap-2">
                     <Check className="size-4 text-success shrink-0" />
-                    <span>{item.cosmos}</span>
+                    <span>{item.coscompay}</span>
                   </div>
                 </td>
                 <td className="py-4 text-muted-foreground font-mono">

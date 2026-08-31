@@ -1,4 +1,4 @@
-// Cloudflare D1 (SQLite) integration for CosCon Pay.
+// Cloudflare D1 (SQLite) integration for CosComPay.
 //
 // Server-only. On the deployed Worker, Nitro's `cloudflare-module` preset
 // exposes the environment bindings via `req.runtime.cloudflare.env` (with

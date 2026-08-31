@@ -33,14 +33,14 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3" aria-label="CosMonPay Home">
+          <Link to="/" className="flex items-center gap-3" aria-label="CosComPay Home">
             <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
               <svg className="w-6 h-6 text-primary-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="12" cy="12" r="10" strokeWidth="2" />
                 <path d="M9 8h4.5a2.5 2.5 0 0 1 0 5H9m0 0v3m0-3v-3m0 3v3" stroke="currentColor" strokeWidth="2" fill="none" />
               </svg>
             </div>
-            <span className="text-xl font-bold font-fraunces text-foreground">CosMonPay</span>
+            <span className="text-xl font-bold font-fraunces text-foreground">CosComPay</span>
           </Link>
 
           {/* Desktop Navigation */}

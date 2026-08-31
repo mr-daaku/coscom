@@ -43,7 +43,7 @@ npm run build
 
 # Run with PM2 for 24/7 uptime & auto-restart
 npm install -g pm2
-pm2 start npm --name "cosmos-gateway" -- run preview`,
+pm2 start npm --name "coscompay-gateway" -- run preview`,
 
     env: `# Environment Configuration (.env)
 PORT=8080
@@ -84,7 +84,7 @@ RPC_SOLANA=https://api.mainnet-beta.solana.com`,
             Deploy In Under 60 Seconds
           </h3>
           <p className="text-sm text-muted-foreground mt-1">
-            Run CosMos Pay on your own servers with zero middlemen, zero telemetry, and 100% data sovereignty.
+            Run CosComPay on your own servers with zero middlemen, zero telemetry, and 100% data sovereignty.
           </p>
         </div>
 

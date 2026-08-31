@@ -14,7 +14,7 @@ const coins = [
 
 const amountUSD = 249.00;
 const orderId = "CMP-7842";
-const cosmonpayFee = 0.004; // 0.4%
+const coscompayFee = 0.004; // 0.4%
 
 export default function CheckoutDemo() {
   const [selectedCoin, setSelectedCoin] = useState(coins[0]);
@@ -23,8 +23,8 @@ export default function CheckoutDemo() {
   // Calculate crypto amount
   const cryptoAmount = (amountUSD / selectedCoin.rate).toFixed(selectedCoin.symbol === "BTC" ? 8 : 4);
   const networkFee = selectedCoin.networkFee;
-  const cosmonpayFeeAmount = (amountUSD * cosmonpayFee).toFixed(2);
-  const totalUSD = (amountUSD + networkFee + parseFloat(cosmonpayFeeAmount)).toFixed(2);
+  const coscompayFeeAmount = (amountUSD * coscompayFee).toFixed(2);
+  const totalUSD = (amountUSD + networkFee + parseFloat(coscompayFeeAmount)).toFixed(2);
 
   const handleCoinSelect = (coin: typeof coins[0]) => {
     setIsAnimating(true);
@@ -38,7 +38,7 @@ export default function CheckoutDemo() {
       <div className="relative bg-card border border-border rounded-3xl p-6 backdrop-blur-xl">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <div className="text-sm text-muted-foreground font-mono">cosmonpay://checkout</div>
+          <div className="text-sm text-muted-foreground font-mono">coscompay://checkout</div>
           <div className="flex gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-destructive" />
             <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#e6b335" }} />
@@ -98,8 +98,8 @@ export default function CheckoutDemo() {
               <span className="font-mono">~${networkFee.toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-xs mb-2">
-              <span className="text-muted-foreground">CosMonPay fee</span>
-              <span className="font-mono text-primary">{cosmonpayFeeAmount}</span>
+              <span className="text-muted-foreground">CosComPay fee</span>
+              <span className="font-mono text-primary">{coscompayFeeAmount}</span>
             </div>
             <div className="flex justify-between text-sm font-semibold pt-2 border-t border-border mt-2">
               <span>Total</span>

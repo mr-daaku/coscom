@@ -1,12 +1,12 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 /* shadcn/ui animations on Tailwind v4 (NOT tailwindcss-animate, which is v3-only). */
 @import "tw-animate-css";
 
 /* ---------------------------------------------------------------------------
-   shadcn/ui design tokens — EXACT official convention (ui.shadcn.com/docs/theming,
+   shadcn/ui design tokens ΓÇö EXACT official convention (ui.shadcn.com/docs/theming,
    Tailwind v4, OKLCH, NO tailwind.config.js). Every semantic token shadcn /
    Aceternity / copied components expect resolves here, so the AI can use
-   bg-background / text-foreground / bg-primary / border-border / bg-accent / …
+   bg-background / text-foreground / bg-primary / border-border / bg-accent / ΓÇª
    AND raw var(--x) without ever hitting an undefined variable (the black-on-black
    bug). The AI may RECOLOR by editing these values; it must NOT reference tokens
    that don't exist here. --brand/--brand-accent kept for legacy brand styling.
@@ -46,11 +46,6 @@
   --sidebar-border: #2a3333;
   --sidebar-ring: #a3e635;
   --brand: #a3e635; --brand-dark: #84c518; --accent-color: #38bdf8;
-  --success: #34d399;
-  --warning: #fbbf24;
-  --info: #38bdf8;
-  --surface: #1d2323;
-  --subtle: #9ba39e;
 }
 
 .dark {
@@ -88,11 +83,6 @@
   --sidebar-border: #2a3333;
   --sidebar-ring: #a3e635;
   --brand: #a3e635; --brand-dark: #8ace1a; --accent-color: #38bdf8;
-  --success: #34d399;
-  --warning: #fbbf24;
-  --info: #38bdf8;
-  --surface: #1d2323;
-  --subtle: #9ba39e;
 }
 
 /* Map the semantic vars onto Tailwind v4's @theme so utilities like
@@ -119,12 +109,6 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --color-surface: var(--surface);
-  --color-success: var(--success);
-  --color-warning: var(--warning);
-  --color-info: var(--info);
-  --color-subtle: var(--subtle);
-
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -145,11 +129,11 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  /* 🎨 KLEAP COLOR ALIASES — the grayscale + brand utilities the AI reflexively
-     hardcodes (text-slate-900, bg-white, text-indigo-600, from-emerald-50…) are
+  /* ≡ƒÄ¿ KLEAP COLOR ALIASES ΓÇö the grayscale + brand utilities the AI reflexively
+     hardcodes (text-slate-900, bg-white, text-indigo-600, from-emerald-50ΓÇª) are
      remapped onto our semantic tokens, so the WHOLE site is theme-aware and
-     unified WITHOUT rewriting the AI's code — and the in-builder palette picker
-     can recolour everything by swapping :root. white→background; text-white on a
+     unified WITHOUT rewriting the AI's code ΓÇö and the in-builder palette picker
+     can recolour everything by swapping :root. whiteΓåÆbackground; text-white on a
      coloured button is backstopped by the runtime contrast guard. */
   --color-white: var(--background);
   --color-black: var(--foreground);
@@ -397,7 +381,7 @@
   --color-rose-950: var(--primary);
 }
 
-/* shadcn base layer — every element gets the themed border color, and the page
+/* shadcn base layer ΓÇö every element gets the themed border color, and the page
    itself defaults to the themed background/foreground. This is the safety net:
    even if the AI forgets to put bg-background/text-foreground on <body>, the
    page is never unreadable (no white-on-white / black-on-black by default). */
@@ -411,8 +395,8 @@
   }
 }
 
-/* @kleap-contrast-guard ──────────────────────────────────────────────────────
-   CONTRAST GUARANTEE — legible text over images, every time, deterministically.
+/* @kleap-contrast-guard ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+   CONTRAST GUARANTEE ΓÇö legible text over images, every time, deterministically.
    The model reliably puts light text over a cover image WITHOUT a dark scrim, so
    on a light photo (gold, blush, pale stone) the text becomes unreadable. The
    prompt can't be trusted to fix this on every generation, so the SCAFFOLD owns
@@ -422,9 +406,9 @@
    parent so it never tints whole sections; pointer-events:none so it never
    blocks clicks. This makes text-over-image readable on EVERY site without the
    AI having to remember an overlay.
-   ⚠️ EXCLUDES `.absolute`/`.fixed`/`.sticky`: a full-bleed bg-image wrapper
+   ΓÜá∩╕Å EXCLUDES `.absolute`/`.fixed`/`.sticky`: a full-bleed bg-image wrapper
    (`<div class="absolute inset-0"><img object-cover>`) must KEEP its own
-   position — forcing `relative` knocked it into the flex flow and ate half the
+   position ΓÇö forcing `relative` knocked it into the flex flow and ate half the
    hero (the "vide" bug, app 29482). Those wrappers hold no text, so no scrim. */
 :where(div, a, figure, article):not(.absolute):not(.fixed):not(.sticky):has(
     > img[class*="object-cover"][class*="absolute"]

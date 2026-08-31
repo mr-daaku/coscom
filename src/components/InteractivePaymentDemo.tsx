@@ -230,7 +230,7 @@ export default function InteractivePaymentDemo() {
               </span>
             </div>
             <div className="mt-2 flex justify-between text-xs text-muted-foreground">
-              <span>Merchant Fee (CosMos):</span>
+              <span>Merchant Fee (CosComPay):</span>
               <span className="font-semibold text-success">0% (Zero)</span>
             </div>
             <div className="mt-2 flex justify-between text-xs text-muted-foreground">

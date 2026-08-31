@@ -1,0 +1,142 @@
+﻿diff --git a/src/styles.css b/src/styles.css
+index 232fce8..ca217c3 100644
+--- a/src/styles.css
++++ b/src/styles.css
+@@ -46,6 +46,11 @@
+   --sidebar-border: #2a3333;
+   --sidebar-ring: #a3e635;
+   --brand: #a3e635; --brand-dark: #84c518; --accent-color: #38bdf8;
++  --success: #34d399;
++  --warning: #fbbf24;
++  --info: #38bdf8;
++  --surface: #1d2323;
++  --subtle: #9ba39e;
+ }
+ 
+ .dark {
+@@ -83,6 +88,11 @@
+   --sidebar-border: #2a3333;
+   --sidebar-ring: #a3e635;
+   --brand: #a3e635; --brand-dark: #8ace1a; --accent-color: #38bdf8;
++  --success: #34d399;
++  --warning: #fbbf24;
++  --info: #38bdf8;
++  --surface: #1d2323;
++  --subtle: #9ba39e;
+ }
+ 
+ /* Map the semantic vars onto Tailwind v4's @theme so utilities like
+@@ -109,6 +119,12 @@
+   --color-input: var(--input);
+   --color-ring: var(--ring);
+ 
++  --color-surface: var(--surface);
++  --color-success: var(--success);
++  --color-warning: var(--warning);
++  --color-info: var(--info);
++  --color-subtle: var(--subtle);
++
+   --color-chart-1: var(--chart-1);
+   --color-chart-2: var(--chart-2);
+   --color-chart-3: var(--chart-3);
+@@ -381,6 +397,22 @@
+   --color-rose-950: var(--primary);
+ }
+ 
++/* Payment page / pay-flow utilities ΓÇö mono digits, raised panels, pulsing dot */
++@utility mono {
++  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
++  font-feature-settings: "zero" 1;
++}
++
++@utility panel {
++  background-color: var(--color-card);
++  border: 1px solid var(--color-border);
++  border-radius: calc(var(--radius) + 4px);
++  box-shadow:
++    0 1px 0 0 rgb(255 255 255 / 0.04) inset,
++    0 18px 40px -24px rgb(0 0 0 / 0.9);
++  transition: all 0.2s ease;
++}
++
+ /* shadcn base layer ΓÇö every element gets the themed border color, and the page
+    itself defaults to the themed background/foreground. This is the safety net:
+    even if the AI forgets to put bg-background/text-foreground on <body>, the
+@@ -449,6 +481,77 @@
+     opacity: 1;
+     transform: translateY(0);
+   }
++
++  .pulse-dot {
++    animation: pulse-dot 1.6s ease-in-out infinite;
++  }
++
++  @keyframes pulse-dot {
++    0%,
++    100% {
++      opacity: 1;
++      transform: scale(1);
++    }
++    50% {
++      opacity: 0.35;
++      transform: scale(0.85);
++    }
++  }
++
++  /* Pay flow polish ΓÇö glow, shimmer, step/modal transitions, token/chain hovers */
++  .glow-card {
++    box-shadow:
++      0 0 0 1px rgb(255 255 255 / 0.03) inset,
++      0 25px 60px -30px rgb(0 0 0 / 0.8);
++  }
++
++  .shimmer-border {
++    background: linear-gradient(to right, transparent, var(--primary), transparent));
++    background-size: 200% 100%;
++    animation: shimmer 2.5s linear infinite;
++  }
++
++  @keyframes shimmer {
++    0% { background-position: -200% 0; }
++    100% { background-position: 200% 0; }
++  }
++
++  .step-enter {
++    animation: step-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
++  }
++
++  .step-exit {
++    animation: step-out 0.18s ease-in both;
++  }
++
++  @keyframes step-in {
++    from { opacity: 0; transform: translateY(14px) scale(0.99); }
++    to { opacity: 1; transform: translateY(0) scale(1); }
++  }
++
++  @keyframes step-out {
++    from { opacity: 1; transform: translateY(0) scale(1); }
++    to { opacity: 0; transform: translateY(-8px) scale(0.99); }
++  }
++
++  .modal-enter {
++    animation: modal-in 0.3s cubic-bezier(0.22, 1, 1, 0.36, 1) both;
++  }
++
++  @keyframes modal-in {
++    from { opacity: 0; transform: translateY(20px) scale(0.97); }
++    to { opacity: 1; transform: translateY(0) scale(1); }
++  }
++
++  .token-card,
++  .chain-card {
++    transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
++  }
++
++  .token-card:active,
++  .chain-card:active {
++    transform: scale(0.98);
++  }
+   
+   /* Reduced motion */
+   @media (prefers-reduced-motion: reduce) {

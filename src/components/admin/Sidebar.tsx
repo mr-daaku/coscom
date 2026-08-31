@@ -143,7 +143,7 @@ export function Sidebar({
         <div className="flex items-center gap-3 px-5 py-4">
           <span className="grid size-9 place-items-center rounded-xl bg-primary/15 text-lg">💎</span>
           <div>
-            <p className="text-sm font-semibold">CosCon Pay</p>
+            <p className="text-sm font-semibold">CosComPay</p>
             <p className="text-[11px] text-muted-foreground">Payment Gateway</p>
           </div>
         </div>

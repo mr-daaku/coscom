@@ -1,16 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import SpotlightBackground from "../components/SpotlightBackground";
 
 export const Route = createFileRoute("/pay")({
   head: () => ({
     meta: [
-      { title: "Pay Invoice — CosMos Pay" },
+      { title: "Pay Invoice — CosComPay" },
       {
         name: "description",
         content:
           "Secure crypto checkout: select token, choose network, and pay with live expiry countdown.",
       },
-      { property: "og:title", content: "Pay with crypto — CosMos Pay" },
+      { property: "og:title", content: "Pay with crypto — CosComPay" },
       {
         property: "og:description",
         content:
@@ -338,8 +339,11 @@ function PaymentPage() {
   };
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-10">
+    <main className="relative isolate flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 py-10 text-foreground">
       <style>{animationsCSS}</style>
+
+      {/* CosComPay background — same spotlight/scroll-reveal logic as the home page */}
+      <SpotlightBackground />
 
       {/* Background */}
       <div

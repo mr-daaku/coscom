@@ -77,13 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "CosCon Pay — Crypto Payment Gateway" },
+      { title: "CosComPay — Crypto Payment Gateway" },
       {
         name: "description",
         content: "Multi-chain, self-hosted crypto payment gateway with a real-time admin panel.",
       },
-      { name: "author", content: "CosCon Pay" },
-      { property: "og:title", content: "CosCon Pay — Crypto Payment Gateway" },
+      { name: "author", content: "CosComPay" },
+      { property: "og:title", content: "CosComPay — Crypto Payment Gateway" },
       {
         property: "og:description",
         content: "Multi-chain, self-hosted crypto payment gateway with a real-time admin panel.",

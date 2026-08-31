@@ -1,0 +1,1 @@
+﻿87:             Run CosMos Pay on your own servers with zero middlemen, zero telemetry, and 100% data sovereignty.

@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState, useEffect, useCallback } from "react";
-import { Mail, Lock, User, Send, Check, AlertCircle, Eye, EyeOff } from "lucide-react";
+import { Mail, Lock, User, Send, Check, AlertCircle, Eye, EyeOff, ArrowLeft } from "lucide-react";
 import SpotlightBackground from "@/components/SpotlightBackground";
 
 const GoogleIcon = () => (
@@ -18,12 +18,12 @@ const GoogleIcon = () => (
 export const Route = createFileRoute("/signup")({
   head: () => ({
     meta: [
-      { title: "Create Account — CosMonPay" },
+      { title: "Create Account — CosComPay" },
       {
         name: "description",
-        content: "Create your CosMonPay merchant account and start accepting crypto payments.",
+        content: "Create your CosComPay merchant account and start accepting crypto payments.",
       },
-      { property: "og:title", content: "Create Account — CosMonPay" },
+      { property: "og:title", content: "Create Account — CosComPay" },
       { property: "og:description", content: "Create your merchant account and start accepting crypto payments." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -184,16 +184,23 @@ function SignupPage() {
       {/* Foreground Content */}
       <div className="relative z-10 w-full min-h-screen flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-md">
+          {/* Back Button */}
+          <div className="mb-6">
+            <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <ArrowLeft className="w-4 h-4" />
+              Back
+            </Link>
+          </div>
           {/* Logo */}
           <div className="flex justify-center mb-8">
-            <Link to="/" className="flex items-center gap-3" aria-label="CosMonPay Home">
+            <Link to="/" className="flex items-center gap-3" aria-label="CosComPay Home">
               <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
                 <svg className="w-7 h-7 text-primary-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="12" cy="12" r="10" strokeWidth="2" />
                   <path d="M9 8h4.5a2.5 2.5 0 0 1 0 5H9m0 0v3m0-3v-3m0 3v3" stroke="currentColor" strokeWidth="2" fill="none" />
                 </svg>
               </div>
-              <span className="text-2xl font-bold font-fraunces text-foreground">CosMonPay</span>
+              <span className="text-2xl font-bold font-fraunces text-foreground">CosComPay</span>
             </Link>
           </div>
 
@@ -361,7 +368,7 @@ function SignupPage() {
                   aria-describedby="legal-error"
                 />
                 <div className="text-sm text-muted-foreground leading-relaxed">
-                  I agree to the <a href="/terms" className="text-primary hover:underline">Terms of Service</a> and <a href="/privacy" className="text-primary hover:underline">Privacy Policy</a>. I understand that CosMonPay is a non-custodial payment processor and I am responsible for securing my wallet credentials.
+                  I agree to the <a href="/terms" className="text-primary hover:underline">Terms of Service</a> and <a href="/privacy" className="text-primary hover:underline">Privacy Policy</a>. I understand that CosComPay is a non-custodial payment processor and I am responsible for securing my wallet credentials.
                 </div>
               </label>
               {errors.legalAccepted && <p id="legal-error" className="mt-1.5 text-sm text-destructive flex items-center gap-1"><AlertCircle className="w-3.5 h-3.5" />{errors.legalAccepted}</p>}

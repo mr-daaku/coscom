@@ -17,6 +17,7 @@ import {
   ExternalLink,
   Github,
   Sparkles,
+  ArrowLeft,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -506,7 +507,10 @@ CosMonPay.mount('#checkout', session);`}</code>
                       : "border border-border hover:bg-background"
                   }`}
                 >
-                  {plan.cta}
+                  <Link to="/signup" className="w-full h-full flex items-center justify-center">
+                    {plan.cta}
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Link>
                 </button>
               </article>
             ))}

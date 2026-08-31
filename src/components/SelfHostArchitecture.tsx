@@ -39,7 +39,7 @@ export default function SelfHostArchitecture() {
             <Server className="size-7" />
           </div>
           <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold">Step 2 (Self-Hosted)</span>
-          <h4 className="text-base font-bold text-white mt-1">Your CosMos Node</h4>
+          <h4 className="text-base font-bold text-white mt-1">Your CosComPay Node</h4>
           <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
             Generates on-chain deposit addresses and monitors mempools via WebSocket.
           </p>

@@ -10,13 +10,13 @@ import * as P from "@/components/admin/pages";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Admin Panel — CosCon Pay Gateway" },
+      { title: "Admin Panel — CosComPay Gateway" },
       {
         name: "description",
         content:
-          "CosCon Pay admin panel: payments, invoices, wallets, tokens, networks, monitoring, analytics and audit logs.",
+          "CosComPay admin panel: payments, invoices, wallets, tokens, networks, monitoring, analytics and audit logs.",
       },
-      { property: "og:title", content: "CosCon Pay Admin Panel" },
+      { property: "og:title", content: "CosComPay Admin Panel" },
       {
         property: "og:description",
         content: "Manage crypto payments, invoices and on-chain monitoring in one dashboard.",
